@@ -1,0 +1,495 @@
+Q>Write a pl/sql code to find the sum of two user given numbers.
+SQL> set serveroutput on;
+SQL> Declare
+	a number(3);
+	b number(3);
+	c number(3);
+     Begin
+	a := &a;
+	b := &b;
+	c := a + b;
+	dbms_output.put_line('The sum is  ' || c);
+End;   
+/
+Enter value for a: 20
+Enter value for b: 30
+The sum is  50
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code to find the maximum of two user given numbers.
+SQL> set serveroutput on;
+SQL> Declare
+        a number(3);
+        b number(3);
+     Begin
+        a := &a;
+        b := &b;
+        if a > b then
+     dbms_output.put_line('The maximum number is : ' || a);
+        elsif a < b then
+     dbms_output.put_line('The maximum number is : ' || b);
+        else
+        dbms_output.put_line('Both numbers are equall.');
+        end if;
+     End;
+ /
+Enter value for a: 56
+Enter value for b: 65
+The maximum number is : 65
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code that will check if the user given number is even or odd. If even insert into ‘even’ table and if odd insert into ‘odd’ table.
+SQL> set serveroutput on;
+SQL> Declare
+          a number(5);
+          b number(1);
+     Begin
+          a := &a;
+          b := a mod 2;
+          if b = 0  then
+     insert into even values(a);
+          else
+        insert into odd values(a);
+          end if;
+     End;
+/
+Enter value for a: 4
+PL/SQL procedure successfully completed.
+
+SQL> select * from even;
+
+     VALUE
+----------
+         4
+
+Q>Write a pl/sql code to check the user entered year is a leap year or not.
+SQL> set serveroutput on;
+SQL> Declare
+       a number(4);
+       b number(4);
+     Begin
+       a := &a;
+       b := a mod 4;
+       if b = 0  then
+	    dbms_output.put_line('It is a leap year');
+       else
+   	    dbms_output.put_line('It in not a leap year');
+       end if;
+End; 
+/
+Enter value for a: 2012
+It is a leap year
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code to insert radius,area,circumference of a circle having radius ranging 3-to-7, in the ‘circle’ table.
+
+SQL> create table circle(
+     radius number(1) not null,
+     area number(5,2) not null,
+     circumference number(4,2) not null);
+
+Table created.
+
+
+SQL> set sereveroutput on;
+SQL> Declare
+     		i number(1);
+     		a number(5,2);
+     		c number(4,2);
+     Begin
+     		for i in 3..7 loop
+     		  a := 3.14*i*i;
+     		  c := 2*3.14*i;
+     		  insert into circle values(i,a,c);
+     		end loop;
+     End;
+/
+
+PL/SQL procedure successfully completed.
+
+
+
+SQL> select * from circle;
+    RADIUS       AREA CIRCUMFERENCE
+---------- ---------- -------------
+         3      28.26         18.84
+         4      50.24         25.12
+         5       78.5          31.4
+         6     113.04         37.68
+         7     153.86         43.96
+
+
+
+
+
+
+Q>Write a pl/sql code to find the factorial of a user entered number.
+SQL> set serveroutput on;
+SQL> Declare
+     		a number(2);
+     		fact number(10);
+     		i number(2);
+     Begin
+     		a := &a;
+    		fact := 1;
+     		for i in 1 .. a loop
+     		  fact := fact*i;
+     		end loop;
+     		dbms_output.put_line('The factorial is ' || fact);
+     End;
+/
+Enter value for a: 4
+The factorial is 24
+PL/SQL procedure successfully completed.
+
+
+
+
+Q>Write a pl/sql code to print the reverse of a user entered number.
+SQL> set serveroutput on;
+SQL> Declare
+     		num varchar(5);
+     		str_length number(20);
+     		inverted_number varchar(5);
+     Begin
+     		num:= &num;
+     		str_length:=length(num);
+     		for i in reverse 1 .. str_length  loop
+     			inverted_number:=inverted_number || substr(num,i,1);
+     		end loop;
+     	   dbms_output.put_line('The Given number is ' || num);
+     	   dbms_output.put_line('The Inverted number is ' || inverted_number);
+     End;
+/
+Enter value for num: 1235
+The Given number is 1235
+The Inverted number is 5321
+PL/SQL procedure successfully completed.
+
+Q>Write a pl/sql code to debit and update account balance of the user entered account, from ‘accounts’ table with some pre inserted values.
+SQL> create table accounts(
+     account_no number(5) primary key,
+     amount number(7,2) not null
+);
+Table created.
+
+SQL> insert into accounts values(12345,5000.00);
+SQL> insert into accounts values(12346,4000.00);
+SQL> insert into accounts values(12347,8000.00);
+
+SQL> select * from accounts;
+ACCOUNT_NO     AMOUNT
+---------- ----------
+     12345       5000
+     12346       4000
+     12347       8000
+
+SQL> set serveroutput on;
+SQL> Declare
+     		acc number(5);
+     		blnce number(7,2);
+     		currbal number(7,2);
+     Begin
+     		acc := &acc;
+     		select amount into blnce from accounts
+     		where acc = account_no;
+     		currbal := blnce-2000;
+     		update accounts set amount = amount-2000 where acc = account_no;
+     		dbms_output.put_line('The current balance is ' || currbal);
+     End;
+/
+Enter value for acc: 12345
+The current balance is 3000
+PL/SQL procedure successfully completed.
+
+SQL> select * from accounts;
+ACCOUNT_NO     AMOUNT
+---------- ----------
+     12345       3000
+     12346       4000
+     12347       8000
+Q>Write a pl/sql code to check whether today is weekend i.e SUNDAY.
+SQL> set serveroutput on;
+SQL> Declare
+     Begin
+     		if  to_char(sysdate,'day')='sunday' then
+     			dbms_output.put_line('Entered date is a weekend.');
+     		else
+     			dbms_output.put_line('Entered date is not a weekend.');
+     		end if;
+     End;
+/
+Entered date is not a weekend.
+
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code to display the grade against entered marks.
+SQL> set serveroutput on;
+SQL> Declare
+    		n number(3);
+     Begin
+     		n := &n;
+     		if n >= 90 then
+     			dbms_output.put_line('Grade : O');
+     		elsif n>= 80 then
+     			dbms_output.put_line('Grade : E');
+     		elsif n>= 70 then
+     			dbms_output.put_line('Grade : A');
+     		elsif n>= 60 then
+   			dbms_output.put_line('Grade : B');
+   		elsif n>= 50 then
+   			dbms_output.put_line('Grade : C');
+   		elsif n>= 40 then
+   			dbms_output.put_line('Grade : D');
+   		elsif n < 40 then
+   			dbms_output.put_line('Grade : F');
+     		end if;
+     End;
+/
+Enter value for n: 56
+Grade : C
+
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code to check whether a entered character is letter or digit.
+SQL> set serveroutput on;
+SQL> Declare
+        a char(2);
+     Begin
+        a := &a;
+        if a >= '0' and a <= '9' then
+     dbms_output.put_line('Entered charecter is a  digit.');
+        else
+        dbms_output.put_line('Entered charecter is a  letter.');
+        end if;
+     End;
+/
+Enter value for a: 'd'
+Entered charecter is a  letter.
+PL/SQL procedure successfully completed.
+SQL> /
+Enter value for a: 8
+Entered charecter is a  digit.
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code to print sum of first n numbers.
+SQL> set serveroutput on;
+SQL> Declare
+    		n number(3);
+    		i number(3);
+    		s number(5);
+    Begin
+   		n := &n;
+   		s := 0;
+    		for i in 1 .. n
+   		loop
+   			s := s + i ;
+  		end loop;
+    dbms_output.put_line( 'The sum of frist ' || n || ' numnbers is:'|| s );
+    End;
+/
+Enter value for n: 15
+The sum of frist 15 numnbers is :120
+
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code to convert Fahrenheit to Celsius and vice-versa.
+SQL> set serveroutput on;
+SQL> Declare
+   		celsius number(6,2);
+     		f number(6,2);
+  		fahrenheit number(6,2);
+    		c number(6,2);
+    	Begin
+   		celsius := &celsius;
+   		f :=((9/5)*celsius)+32;
+   		fahrenheit := &fahrenheit;
+   		c :=((fahrenheit - 32)*5)/9;
+   		dbms_output.put_line('celsius converted to fahrenheit is ' || f);
+ 		dbms_output.put_line('fahrenheit converted to celsius is ' || c);
+     End;
+/
+Enter value for celsius: 0
+Enter value for fahrenheit: 32
+celsius converted to fahrenheit is 32
+fahrenheit converted to celsius is 0
+
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q>Write a pl/sql code to check whether a number is prime or not.
+SQL> set serveroutput on;
+SQL> Declare
+    		n number(3);
+    		i number(3);
+    		m number(2);
+    		cou number(1);
+
+     Begin
+    		n := &n;
+    		cou := 0;
+    		for i in 2 .. (n-1)
+   		loop
+   			m := n mod i;
+   			if m = 0 then
+   				cou:=1;
+   				dbms_output.put_line(n || ' is divisible by ' || i );
+   			end if;
+   		end loop;
+   		if cou = 0 then
+   			dbms_output.put_line( n || ' is a prime numnber.'  );
+   		else
+ 	   		dbms_output.put_line( n || ' is not a prime numnber.'  );
+   		end if;
+     End;
+/
+Enter value for n: 12
+12 is divisible by 2
+12 is divisible by 3
+12 is divisible by 4
+12 is divisible by 6
+12 is not a prime numnber.
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for n: 13
+13 is a prime numnber.
+
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code that will take the number from one to seven and print the corresponding day.
+SQL> set serveroutput on;
+SQL> declare
+    		n number(1);
+     begin
+    		n := &n;
+    		if n = 1 then
+    			dbms_output.put_line('Sunday');
+    		elsif n = 2 then
+    			dbms_output.put_line('Monday');
+    		elsif n = 3 then
+   			dbms_output.put_line('Tuesday');
+   		elsif n = 4 then
+   			dbms_output.put_line('Wednesday');
+   		elsif n = 5 then
+   			dbms_output.put_line('Thursday');
+   		elsif n = 6 then
+   			dbms_output.put_line('Friday');
+   		elsif n = 7 then
+   			dbms_output.put_line('Saturday');
+   		else
+   			dbms_output.put_line('Enter an integer between 1 and 7');
+   		end if;
+     End;
+ /
+Enter value for n: 6
+Friday
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q>Write a pl/sql code that will check whether entered string is palindrome or not.
+
+
+
+SQL> set serveroutput on;
+SQL> Declare
+     		str varchar(10);
+    		n number(2);
+    		restr varchar(10);
+     Begin
+    		str := &str;
+    		n := length(str);
+    		for i in reverse 1 .. n
+   		loop
+   			restr := restr || substr(str,i,1);
+   		end loop;
+
+   		if (str = restr)
+   		then
+   			dbms_output.put_line('Entered string is a Palindrom');
+   		else
+   			dbms_output.put_line('Entered string is not a Plindrom');
+   		end if;
+     End;
+/
+Enter value for str: 'basab'
+Entered string is a Palindrom
+PL/SQL procedure successfully completed.
+
+
+
+SQL> /
+Enter value for str: 'nhsdf'
+Entered string is not a Plindrom
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+Q>Write a pl/sql code that will check whether entered number is a buzz or not.
+
+SQL> set serveroutput on;
+SQL> Declare
+    		a number(8);
+     Begin
+    		a:=&a;
+    		if (mod(a,7)=0)
+    		then
+    		dbms_output.put_line('The entered number is a buzz number');
+    		elsif(mod(a,10)=7)
+    		then
+   		dbms_output.put_line('The entered number is a buzz number');
+   		else
+   		dbms_output.put_line('The entered number is not a buzz number');
+   		end if;
+     End;
+/
+Enter value for a: 12547
+The entered number is a buzz number
+PL/SQL procedure successfully completed.
+
+
+SQL> /
+Enter value for a: 256
+The entered number is not a buzz number
+PL/SQL procedure successfully completed.
+
+
+SQL> /
+Enter value for a: 49
+The entered number is a buzz number
+PL/SQL procedure successfully completed.

@@ -1,0 +1,3686 @@
+
+
+
+
+
+Assignment-1
+Enter password: **************
+Welcome to the MySQL monitor.  
+
+
+mysql> show databases;	
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.11 sec)
+
+mysql> create database students;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> use students;
+Database changed
+
+mysql> create table stud(name varchar(40),roll int(5) primary key,gender varchar(1) not null,d_o_b date);
+Query OK, 0 rows affected, 1 warning (0.28 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_students |
++--------------------+
+| stud               |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> create table stud1(sid int(5) references stud,semester varchar(10),sgpa int(3));
+Query OK, 0 rows affected, 2 warnings (0.30 sec)
+
+
+
+
+
+
+
+mysql> show tables;
++--------------------+
+| Tables_in_students |
++--------------------+
+| stud               |
+| stud1              |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> describe stud;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(40) | YES  |     | NULL    |       |
+| roll   | int         | NO   | PRI | NULL    |       |
+| gender | varchar(1)  | NO   |     | NULL    |       |
+| d_o_b  | date        | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc stud1;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| sid      | int         | YES  |     | NULL    |       |
+| semester | varchar(10) | YES  |     | NULL    |       |
+| sgpa     | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into stud values('krishnendu',302,'F','2004-03-19');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> SELECT * FROM STUD;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| krishnendu |  302 | F      | 2004-03-19 |
++------------+------+--------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+mysql> insert into stud values('chetan c',354,'M','2003-03-13');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into stud values('souresh',312,'M','2002-03-18');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into stud values('debjyoti',314,'F','2002-01-17');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into stud values('animikh',296,'M','2002-11-18');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM STUD;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| animikh    |  296 | M      | 2002-11-18 |
+| krishnendu |  302 | F      | 2004-03-19 |
+| souresh    |  312 | M      | 2002-03-18 |
+| debjyoti   |  314 | F      | 2002-01-17 |
+| chetan c   |  354 | M      | 2003-03-13 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+mysql> insert into stud1 values(296,'fifth',99);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into stud1 values(214,'third',99);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into stud1 values(302,'first',89);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into stud1 values(306,'third',88);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into stud1 values(777,'fifth',95);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into stud1 values(218,'first',100);
+Query OK, 1 row affected (0.04 sec)
+
+
+
+
+
+mysql> select * from stud1;
++------+----------+------+
+| sid  | semester | sgpa |
++------+----------+------+
+|  296 | fifth    |   99 |
+|  214 | third    |   99 |
+|  302 | first    |   89 |
+|  306 | third    |   88 |
+|  777 | fifth    |   95 |
+|  218 | first    |  100 |
++------+----------+------+
+6 rows in set (0.00 sec)
+
+
+Q. Display Student ID of fifth semester students.
+
+mysql> select sid,semester from stud1 where semester='fifth';
++------+----------+
+| sid  | semester |
++------+----------+
+|  296 | fifth    |
+|  777 | fifth    |
++------+----------+
+2 rows in set (0.00 sec)
+
+
+
+Q. Display those records of students whose name starts with ‘A’.
+
+mysql> select * from stud where name like 'A%';
++---------+------+--------+------------+
+| name    | roll | gender | d_o_b      |
++---------+------+--------+------------+
+| animikh |  296 | M      | 2002-11-18 |
++---------+------+--------+------------+
+1 row in set (0.00 sec)
+
+
+
+Q. Display those records of students whose name ends with ‘U’.
+
+mysql> select * from stud where name like '%u';
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| krishnendu |  302 | M      | 2004-03-19 |
++------------+------+--------+------------+
+1 row in set (0.00 sec)
+
+
+Q. Display those records of students who got SGPA more than 90.
+
+mysql> select * from stud1 where sgpa>90;
++------+----------+------+
+| sid  | semester | sgpa |
++------+----------+------+
+|  296 | fifth    |   99 |
+|  214 | third    |   99 |
+|  777 | fifth    |   95 |
+|  218 | first    |  100 |
++------+----------+------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+Q. Display the records of female students.
+
+mysql> select * from stud where gender='f';
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| krishnendu |  302 | F      | 2004-03-19 |
+| debjyoti   |  314 | F      | 2002-01-17 |
++------------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+Q. Display year_of_birth of students.
+
+mysql> select substr(d_o_b,1,4) from stud;
++-------------------+
+| substr(d_o_b,1,4) |
++-------------------+
+| 2002              |
+| 2004              |
+| 2002              |
+| 2002              |
+| 2003              |
++-------------------+
+5 rows in set (0.00 sec)
+
+Q. Display year_of_birth of students in ascending order.
+
+mysql> select substr(d_o_b,1,4) from stud order by d_o_b;
++-------------------+
+| substr(d_o_b,1,4) |
++-------------------+
+| 2002              |
+| 2002              |
+| 2002              |
+| 2003              |
+| 2004              |
++-------------------+
+5 rows in set (0.00 sec)
+
+
+Q. Display records of students according to  date_of_birth.
+
+mysql> select * from stud order by d_o_b;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| debjyoti   |  314 | F      | 2002-01-17 |
+| souresh    |  312 | M      | 2002-03-18 |
+| animikh    |  296 | M      | 2002-11-18 |
+| chetan c   |  354 | M      | 2003-03-13 |
+| krishnendu |  302 | F      | 2004-03-19 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+
+Q. Display records of students according to increasing year_of_birth.
+
+mysql> select * from stud order by substr(d_o_b,1,4);
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| animikh    |  296 | M      | 2002-11-18 |
+| souresh    |  312 | M      | 2002-03-18 |
+| debjyoti   |  314 | F      | 2002-01-17 |
+| chetan c   |  354 | M      | 2003-03-13 |
+| krishnendu |  302 | F      | 2004-03-19 |
++------------+------+--------+------------+
+5 rows in set (0.01 sec)
+Q. Display records of students according to increasing month_of_birth.
+
+mysql> select * from stud order by substr(d_o_b,6,2);
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| debjyoti   |  314 | F      | 2002-01-17 |
+| krishnendu |  302 | F      | 2004-03-19 |
+| souresh    |  312 | M      | 2002-03-18 |
+| chetan c   |  354 | M      | 2003-03-13 |
+| animikh    |  296 | M      | 2002-11-18 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+
+Q. Display records of students according to increasing date_of_birth.
+
+mysql> select * from stud order by substr(d_o_b,9,2);
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| chetan c   |  354 | M      | 2003-03-13 |
+| debjyoti   |  314 | F      | 2002-01-17 |
+| animikh    |  296 | M      | 2002-11-18 |
+| souresh    |  312 | M      | 2002-03-18 |
+| krishnendu |  302 | F      | 2004-03-19 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+
+Q. Display records of students having age less than 20.
+
+mysql> select * from stud where (2022-substr(d_o_b,1,4))<20;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| krishnendu |  302 | F      | 2004-03-19 |
+| chetan c   |  354 | M      | 2003-03-13 |
++------------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+Q. Display records of students according to gender.
+
+mysql> select * from stud order by gender;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| krishnendu |  302 | F      | 2004-03-19 |
+| debjyoti   |  314 | F      | 2002-01-17 |
+| animikh    |  296 | M      | 2002-11-18 |
+| souresh    |  312 | M      | 2002-03-18 |
+| chetan c   |  354 | M      | 2003-03-13 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from stud order by gender desc;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| animikh    |  296 | M      | 2002-11-18 |
+| souresh    |  312 | M      | 2002-03-18 |
+| chetan c   |  354 | M      | 2003-03-13 |
+| krishnendu |  302 | F      | 2004-03-19 |
+| debjyoti   |  314 | F      | 2002-01-17 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+
+Q. Add a new field named as ‘Age’.
+mysql> alter table stud add age int not null;
+Query OK, 0 rows affected (0.39 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud;
++------------+------+--------+------------+-----+
+| name       | roll | gender | d_o_b      | age |
++------------+------+--------+------------+-----+
+| animikh    |  296 | M      | 2002-11-18 |   0 |
+| krishnendu |  302 | F      | 2004-03-19 |   0 |
+| souresh    |  312 | M      | 2002-03-18 |   0 |
+| debjyoti   |  314 | F      | 2002-01-17 |   0 |
+| chetan c   |  354 | M      | 2003-03-13 |   0 |
++------------+------+--------+------------+-----+
+5 rows in set (0.00 sec)
+
+Q. Set the values of the new field ‘Age’.
+mysql> update stud set age=2022-substr(d_o_b,1,4);
+Query OK, 5 rows affected (0.05 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from stud;
++------------+------+--------+------------+-----+
+| name       | roll | gender | d_o_b      | age |
++------------+------+--------+------------+-----+
+| animikh    |  296 | M      | 2002-11-18 |  20 |
+| krishnendu |  302 | F      | 2004-03-19 |  18 |
+| souresh    |  312 | M      | 2002-03-18 |  20 |
+| debjyoti   |  314 | F      | 2002-01-17 |  20 |
+| chetan c   |  354 | M      | 2003-03-13 |  19 |
++------------+------+--------+------------+-----+
+
+
+Q. Delete the new field ‘Age’.
+mysql> alter table stud drop age;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud;
++------------+------+--------+------------+
+| name       | roll | gender | d_o_b      |
++------------+------+--------+------------+
+| animikh    |  296 | M      | 2002-11-18 |
+| krishnendu |  302 | F      | 2004-03-19 |
+| souresh    |  312 | M      | 2002-03-18 |
+| debjyoti   |  314 | F      | 2002-01-17 |
+| chetan c   |  354 | M      | 2003-03-13 |
++------------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+Q. Add a new field named as ‘Marks’.
+mysql> alter table stud add marks int(3) not null;
+Query OK, 0 rows affected, 1 warning (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from stud;
++------------+------+--------+------------+-------+
+| name       | roll | gender | d_o_b      | marks |
++------------+------+--------+------------+-------+
+| animikh    |  296 | M      | 2002-11-18 |     0 |
+| krishnendu |  302 | F      | 2004-03-19 |     0 |
+| souresh    |  312 | M      | 2002-03-18 |     0 |
+| debjyoti   |  314 | F      | 2002-01-17 |     0 |
+| chetan c   |  354 | M      | 2003-03-13 |     0 |
++------------+------+--------+------------+-------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> update stud set marks=60 where roll=314;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud set marks=66 where roll=296;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud set marks=96 where roll=302;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud set marks=78 where roll=312;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud set marks=83 where roll=354;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+
+
+
+
+
+
+
+
+mysql> select * from stud;
++------------+------+--------+------------+-------+
+| name       | roll | gender | d_o_b      | marks |
++------------+------+--------+------------+-------+
+| animikh    |  296 | M      | 2002-11-18 |    66 |
+| krishnendu |  302 | F      | 2004-03-19 |    96 |
+| souresh    |  312 | M      | 2002-03-18 |    78 |
+| debjyoti   |  314 | F      | 2002-01-17 |    60 |
+| chetan c   |  354 | M      | 2003-03-13 |    83 |
++------------+------+--------+------------+-------+
+5 rows in set (0.00 sec)
+
+
+Q. Display the maximum marks.
+
+mysql> select max(marks) from stud;
++------------+
+| max(marks) |
++------------+
+|         96 |
++------------+
+1 row in set (0.01 sec)
+
+
+Q. Display the miniimum marks.
+
+mysql> select min(marks) from stud;
++------------+
+| min(marks) |
++------------+
+|         60 |
++------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+Q. Display the avarage marks.
+
+mysql> select avg(marks) from stud;
++------------+
+| avg(marks) |
++------------+
+|    76.6000 |
++------------+
+1 row in set (0.00 sec)
+
+
+
+Q. Display the total sum of marks.
+
+mysql> select sum(marks) from stud;
++------------+
+| sum(marks) |
++------------+
+|        383 |
++------------+
+1 row in set (0.00 sec)
+
+
+Q. Display the number of records of marks.
+
+mysql> select count(marks) from stud;
++--------------+
+| count(marks) |
++--------------+
+|            5 |
++--------------+
+1 row in set (0.00 sec)
+
+
+
+Q. Display records of student having highest marks.
+
+mysql> select * from stud where marks=(select max(marks) from stud);
++------------+------+--------+------------+-------+
+| name       | roll | gender | d_o_b      | marks |
++------------+------+--------+------------+-------+
+| krishnendu |  302 | F      | 2004-03-19 |    96 |
++------------+------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+Q. Display records of student having lowest marks.
+
+mysql> select * from stud where marks=(select min(marks) from stud);
++----------+------+--------+------------+-------+
+| name     | roll | gender | d_o_b      | marks |
++----------+------+--------+------------+-------+
+| debjyoti |  314 | F      | 2002-01-17 |    60 |
++----------+------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+
+Q. Display records of student having second highest marks.
+
+mysql> select * from stud where marks = (select max(marks) from stud where marks<(select max(marks) from stud));
++----------+------+--------+------------+-------+
+| name     | roll | gender | d_o_b      | marks |
++----------+------+--------+------------+-------+
+| chetan c |  354 | M      | 2003-03-13 |    83 |
++----------+------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from stud;
++------------+------+--------+------------+-------+
+| name       | roll | gender | d_o_b      | marks |
++------------+------+--------+------------+-------+
+| animikh    |  296 | M      | 2002-11-18 |    66 |
+| krishnendu |  302 | F      | 2004-03-19 |    96 |
+| souresh    |  312 | M      | 2002-03-18 |    78 |
+| debjyoti   |  314 | F      | 2002-01-17 |    60 |
+| chetan c   |  354 | M      | 2003-03-13 |    83 |
++------------+------+--------+------------+-------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+Q. Display records of student having second lowest marks.
+
+mysql> select * from stud where marks = (select min(marks) from stud where marks>(select min(marks) from stud));
+
++---------+------+--------+------------+-------+
+| name    | roll | gender | d_o_b      | marks |
++---------+------+--------+------------+-------+
+| animikh |  296 | M      | 2002-11-18 |    66 |
++---------+------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+
+Q. Display name of student having longest name.
+.
+mysql> select name from stud where length(name)=(select max(length(name)) from stud);
++------------+
+| name       |
++------------+
+| krishnendu |
++------------+
+1 row in set (0.00 sec)
+
+
+
+Q. Display name along with name_length, of student having longest name.
+
+mysql> select name,max(length(name)) from stud where length(name)=(select max(length(name)) from stud);
++------------+-------------------+
+| name       | max(length(name)) |
++------------+-------------------+
+| krishnendu |                10 |
++------------+-------------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+Q. Display the records of student whose third letter of name is ‘i’.
+
+mysql> select * from stud where name like '__i%';
++------------+------+--------+------------+-------+
+| name       | roll | gender | d_o_b      | marks |
++------------+------+--------+------------+-------+
+| animikh    |  296 | M      | 2002-11-18 |    66 |
+| krishnendu |  302 | F      | 2004-03-19 |    96 |
++------------+------+--------+------------+-------+
+2 rows in set (0.01 sec)
+
+
+
+Q. Display the records of student whose name starts with ‘A’ and scored marks in 50-70 range.
+
+mysql> select * from stud where (marks between 50 and 70 and gender='m')and name like 'a%';
++---------+------+--------+------------+-------+
+| name    | roll | gender | d_o_b      | marks |
++---------+------+--------+------------+-------+
+| animikh |  296 | M      | 2002-11-18 |    66 |
++---------+------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+Assignment-2
+Enter password: **************
+Welcome to the MySQL.
+
+mysql> create database employee;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> use employee;
+Database changed
+
+
+mysql> create table emp(
+eid int(5) primary key,
+ename varchar(40),
+addr varchar(60),
+mob int(10),
+sal int(10)
+);
+Query OK, 0 rows affected, 3 warnings (0.63 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| emp                |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(465,'Animikh','Agartala','9863638246',100000);
+mysql> insert into emp values(257,'Arkopal','Krishnanagar','8900016595',1400000);
+mysql> insert into emp values(754,'Nendu','Kolkata','7925634812',199000);
+mysql> insert into emp values(789,'Soukesh','Midnapur','7296483150',1999000);
+mysql> insert into emp values(423,'Wadde','Raipur','3594682107',19999000);
+mysql> insert into emp values(786,'Debojyoti','Tehotto','8967451302',19000);
+mysql> insert into emp values(123,'Choitonno','Hoogly','9673158420',90000);
+
+
+
+
+
+
+
+
+
+
+
+mysql> select * from emp;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 123 | Choitonno | Hoogly       | 9673158420 |    90000 |
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1400000 |
+| 423 | Wadde     | Raipur       | 3594682107 | 19999000 |
+| 465 | Animikh   | Agartala     | 9863638246 |   100000 |
+| 754 | Nendu     | Kolkata      | 7925634812 |   199000 |
+| 786 | Debojyoti | Tehotto      | 8967451302 |    19000 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  1999000 |
++-----+-----------+--------------+------------+----------+
+7 rows in set (0.00 sec)
+
+
+Q>Increment each employee’s salary by 10%.
+mysql> update emp set sal = sal*1.1;
+Query OK, 7 rows affected (0.06 sec)
+mysql> select * from emp;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 123 | Choitonno | Hoogly       | 9673158420 |    99000 |
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1540000 |
+| 423 | Wadde     | Raipur       | 3594682107 | 21998900 |
+| 465 | Animikh   | Agartala     | 9863638246 |   110000 |
+| 754 | Nendu     | Kolkata      | 7925634812 |   218900 |
+| 786 | Debojyoti | Tehotto      | 8967451302 |    20900 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  2198900 |
++-----+-----------+--------------+------------+----------+
+7 rows in set (0.00 sec)
+
+
+Q>Delete records of those employee who resides either ‘Kolkata’ or ‘Hoogly’.
+mysql> delete from emp where addr='Kolkata' or addr='Hoogly';
+Query OK, 2 rows affected (0.07 sec)
+mysql> select * from emp;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1540000 |
+| 423 | Wadde     | Raipur       | 3594682107 | 21998900 |
+| 465 | Animikh   | Agartala     | 9863638246 |   110000 |
+| 786 | Debojyoti | Tehotto      | 8967451302 |    20900 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  2198900 |
++-----+-----------+--------------+------------+----------+
+5 rows in set (0.00 sec)
+
+Q>Insert two more tuples having salary more than 2500.
+mysql> insert into emp values(777,'Annie','Tokyo','3256975341',35000);
+mysql> insert into emp values(107,'Jonathan','Mumbai','8961439975',1005000);
+mysql> select * from emp;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 107 | Jonathan  | Mumbai       | 8961439975 |  1005000 |
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1540000 |
+| 423 | Wadde     | Raipur       | 3594682107 | 21998900 |
+| 465 | Animikh   | Agartala     | 9863638246 |   110000 |
+| 777 | Annie     | Tokyo        | 3256975341 |    35000 |
+| 786 | Debojyoti | Tehotto      | 8967451302 |    20900 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  2198900 |
++-----+-----------+--------------+------------+----------+
+7 rows in set (0.00 sec)
+
+Q.Display records of employees according to increasing salary.
+mysql> select * from emp order by sal;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 786 | Debojyoti | Tehotto      | 8967451302 |    20900 |
+| 777 | Annie     | Tokyo        | 3256975341 |    35000 |
+| 465 | Animikh   | Agartala     | 9863638246 |   110000 |
+| 107 | Jonathan  | Mumbai       | 8961439975 |  1005000 |
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1540000 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  2198900 |
+| 423 | Wadde     | Raipur       | 3594682107 | 21998900 |
++-----+-----------+--------------+------------+----------+
+7 rows in set (0.00 sec)
+
+
+Q.Display records of employees according to decreasing salary.
+mysql> select * from emp order by sal desc;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 423 | Wadde     | Raipur       | 3594682107 | 21998900 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  2198900 |
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1540000 |
+| 107 | Jonathan  | Mumbai       | 8961439975 |  1005000 |
+| 465 | Animikh   | Agartala     | 9863638246 |   110000 |
+| 777 | Annie     | Tokyo        | 3256975341 |    35000 |
+| 786 | Debojyoti | Tehotto      | 8967451302 |    20900 |
++-----+-----------+--------------+------------+----------+
+7 rows in set (0.00 sec)
+
+
+Q.Display records of those employees whose salary ranges from 20K to 30K.
+
+
+mysql> select * from emp where sal between 20000 and 30000;
++-----+-----------+---------+------------+-------+
+| eid | ename     | addr    | mob        | sal   |
++-----+-----------+---------+------------+-------+
+| 786 | Debojyoti | Tehotto | 8967451302 | 20900 |
++-----+-----------+---------+------------+-------+
+1 row in set (0.00 sec)
+
+
+
+
+Q.Display records of those employees whose salary does not ranges from 20K to 30K.
+
+
+mysql> select * from emp where sal not between 20000 and 30000;
++-----+----------+--------------+------------+----------+
+| eid | ename    | addr         | mob        | sal      |
++-----+----------+--------------+------------+----------+
+| 107 | Jonathan | Mumbai       | 8961439975 |  1005000 |
+| 257 | Arkopal  | Krishnanagar | 8900016595 |  1540000 |
+| 423 | Wadde    | Raipur       | 3594682107 | 21998900 |
+| 465 | Animikh  | Agartala     | 9863638246 |   110000 |
+| 777 | Annie    | Tokyo        | 3256975341 |    35000 |
+| 789 | Soukesh  | Midnapur     | 7296483150 |  2198900 |
++-----+----------+--------------+------------+----------+
+6 rows in set (0.00 sec)
+
+
+
+
+Q.Display records according to decreasing salary of those employees whose salary does not ranges from 20K to 30K.
+
+
+mysql> select * from emp where sal not between 20000 and 30000 order by sal desc;
++-----+----------+--------------+------------+----------+
+| eid | ename    | addr         | mob        | sal      |
++-----+----------+--------------+------------+----------+
+| 423 | Wadde    | Raipur       | 3594682107 | 21998900 |
+| 789 | Soukesh  | Midnapur     | 7296483150 |  2198900 |
+| 257 | Arkopal  | Krishnanagar | 8900016595 |  1540000 |
+| 107 | Jonathan | Mumbai       | 8961439975 |  1005000 |
+| 465 | Animikh  | Agartala     | 9863638246 |   110000 |
+| 777 | Annie    | Tokyo        | 3256975341 |    35000 |
++-----+----------+--------------+------------+----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+Q.Display records according to increasing salary of those employees whose salary does not ranges from 20K to 30K.
+
+
+mysql> select * from emp where sal not between 20000 and 30000 order by sal;
++-----+-----------+--------------+------------+----------+
+| eid | ename     | addr         | mob        | sal      |
++-----+-----------+--------------+------------+----------+
+| 786 | Debojyoti | Tehotto      | 8967451302 |    20900 |
+| 777 | Annie     | Tokyo        | 3256975341 |    35000 |
+| 465 | Animikh   | Agartala     | 9863638246 |   110000 |
+| 107 | Jonathan  | Mumbai       | 8961439975 |  1005000 |
+| 257 | Arkopal   | Krishnanagar | 8900016595 |  1540000 |
+| 789 | Soukesh   | Midnapur     | 7296483150 |  2198900 |
+| 423 | Wadde     | Raipur       | 3594682107 | 21998900 |
++-----+-----------+--------------+------------+----------+
+7 rows in set, 1 warning (0.02 sec)
+
+
+
+
+
+
+Q.Display records according to decreasing salary of those employees who is not a resident of ‘Raipur’ and whose salary does not ranges from 20K to 30K.
+
+
+mysql> select * from emp where sal not between 20000 and 30000 and addr not in('Raipur') order by sal desc;
++-----+----------+--------------+------------+---------+
+| eid | ename    | addr         | mob        | sal     |
++-----+----------+--------------+------------+---------+
+| 789 | Soukesh  | Midnapur     | 7296483150 | 2198900 |
+| 257 | Arkopal  | Krishnanagar | 8900016595 | 1540000 |
+| 107 | Jonathan | Mumbai       | 8961439975 | 1005000 |
+| 465 | Animikh  | Agartala     | 9863638246 |  110000 |
+| 777 | Annie    | Tokyo        | 3256975341 |   35000 |
++-----+----------+--------------+------------+---------+
+5 rows in set (0.00 sec)
+
+
+
+Assignment-3
+SQL> connect
+Enter user-name: SYSTEM
+Enter password: ********
+Connected.
+
+SQL> select * from dual;
+D
+-
+X
+
+SQL> select 2+3 from dual;
+       2+3
+----------
+         5
+
+SQL> select 2+3 addition from dual;
+  ADDITION
+----------
+         5
+
+SQL> select round(2.379268,2) Round_off from dual;
+ ROUND_OFF
+----------
+      2.38
+
+
+SQL> select trunc(2.379268,2)trunc_ from dual;
+    TRUNC_
+----------
+      2.37
+
+SQL> select length('ELEPHANT')from dual;
+LENGTH('ELEPHANT')
+------------------
+                 8
+
+SQL> select length('')from dual;
+
+LENGTH('')
+----------
+
+
+SQL> select length(' ')from dual;
+
+LENGTH('')
+----------
+         1
+
+SQL> select lower('RKMV') low from dual;
+LOW
+----
+rkmv
+
+SQL> select upper('rkmv')up  from dual;
+UP
+----
+RKMV
+
+
+SQL> select initcap('computer science')init_capital  from dual;
+INIT_CAPITAL
+----------------
+Computer Science
+
+
+SQL> select sqrt(25)square_root from dual;
+SQUARE_ROOT
+-----------
+          5
+
+
+SQL> select power(2,3)from dual;
+POWER(2,3)
+----------
+         8
+
+
+SQL> select sysdate from dual;
+SYSDATE
+---------
+21-JUL-22
+
+
+
+SQL> select sysdate+12 from dual;
+SYSDATE+1
+---------
+02-AUG-22
+
+
+
+SQL> select sysdate+1 dateplus1 from dual;
+DATEPLUS1
+---------
+22-JUL-22
+
+
+SQL> select sysdate - 19 from dual;
+SYSDATE-1
+---------
+02-JUL-22
+
+
+SQL> select * from dual union all select * from dual;
+D
+-
+X
+X
+
+
+SQL> select floor(2.73) from dual;
+FLOOR(2.73)
+-----------
+          2
+
+
+SQL> select ceil(2.73) from dual;
+CEIL(2.73)
+----------
+         3
+
+
+SQL> select months_between('26-aug-2023',sysdate) from dual;
+MONTHS_BETWEEN('26-AUG-2023',SYSDATE)
+-------------------------------------
+                           13.1412761
+
+
+SQL> select to_date('21-07-2022','dd-mm-yy') from dual;
+TO_DATE('
+---------
+21-JUL-22
+
+
+SQL> select last_day(sysdate) from dual;
+LAST_DAY
+---------
+31-JUL-22
+
+
+SQL> select next_day('01-sep-95','friday') from dual;
+
+NEXT_DAY(
+---------
+08-SEP-95
+
+
+SQL> select to_char(sysdate,'dd') from dual;
+TO
+--
+21
+
+SQL> select to_char(sysdate,'day') from dual;
+TO_CHAR(SYSDATE,'DAY')
+------------------------------------
+thursday
+
+
+SQL> select to_char(sysdate,'mm') from dual;
+TO
+--
+07
+
+SQL> select to_char(sysdate,'mon') from dual;
+TO_CHAR(SYSD
+------------
+jul
+
+SQL> select to_char(sysdate,'month') from dual;
+TO_CHAR(SYSDATE,'MONTH')
+------------------------------------
+july
+
+
+SQL> select to_char(sysdate,'yy') from dual;
+TO
+--
+22
+
+SQL> select to_char(sysdate,'yyyy') from dual;
+TO_C
+----
+2022
+
+
+SQL> select to_char(sysdate+15)from dual;
+TO_CHAR(SYSDATE+15
+------------------
+23-AUG-22
+
+
+
+
+
+
+
+
+Assignment-4
+Joining
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Nov 14 10:09:43 2022
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+SQL> set autocommit on;
+
+SQL> create table emp(
+eid number(5) primary key,
+name varchar(25) not null,
+mob number(11) not null,
+addr varchar(20) not null,
+sal number(10) not null
+);
+Table created.
+SQL> create table works_on(
+pid varchar(10) primary key,
+pname varchar(15) not null,
+ploc varchar(15) not null
+);
+Table created.
+SQL> create table project(
+eid number(5) references emp,
+pid varchar(10) references works_on,
+duration varchar(15)not null
+);
+Table created.
+
+SQL> insert into emp values(1665,'Arkopal Das',8965569745,'krishnanagar',90000);
+SQL> insert into emp values(9812,'Krishnendu Das',9453260548,'singur',52000);
+SQL> insert into emp values(9220,'Sonuram Wadde',6003569123,'raipur',63200);
+SQL> insert into emp values(2005,'Souresh
+Mondal',5998645100,'Midnapur',120000);
+
+SQL> insert into emp values(7332,'Chethan C',7602145632,'Bengaluru',201000);
+SQL> insert into works_on values('DIG101','Digital India','Howrah');
+SQL> insert into works_on values('PRD321','Production','Kolkata');
+SQL> insert into works_on values('EMP321','Starfish','Howrah');
+
+SQL> insert into project values(1665,'DIG101','6 Months');
+SQL> insert into project values(9812,'DIG101','6 Months');
+SQL> insert into project values(9220,'PRD321','3 Months');
+SQL> insert into project values(2005,'EMP321','9 Months');
+SQL> insert into project values(7332,'EMP321','9 Months');
+
+
+
+SQL> select * from emp;
+
+       EID NAME                             MOB ADDR                    SAL
+---------- ------------------------- ---------- -------------------- --------
+      1665 Arkopal Das               8965569745 krishnanagar           90000
+      9812 Krishnendu Das            9453260548 singur                 52000
+      9220 Sonuram Wadde             6003569123 raipur                 63200
+      2005 Souresh Mondal            5998645100 Midnapur              120000
+      7332 Chethan C                 7602145632 Bengaluru             201000
+
+
+
+
+SQL> select * from works_on;
+
+PID        PNAME           PLOC
+---------- --------------- ---------------
+DIG101     Digital India   Howrah
+PRD321     Production      Kolkata
+EMP321     Starfish        Howrah
+
+
+
+SQL> select * from project;
+
+       EID PID        DURATION
+---------- ---------- ---------------
+      1665 DIG101     6 Months
+      9812 DIG101     6 Months
+      9220 PRD321     3 Months
+      2005 EMP321     9 Months
+      7332 EMP321     9 Months
+Q. Find out the total number of projects.
+SQL> select count(pid) from works_on;
+
+COUNT(PID)
+----------
+         3
+
+
+
+
+Q. Find out the total number of projects in ‘Howrah’.
+SQL> select count(pid) from works_on where ploc='Howrah';
+
+COUNT(PID)
+----------
+         2
+
+
+
+
+
+Q. Find out those employees with highest and lowest salaries.
+SQL> select name from emp where sal=(select max(sal) from emp) or sal=(select min(sal) from emp);
+
+NAME
+-------------------------
+Krishnendu Das
+Chethan C
+
+
+
+
+Q. Find out the names of those employees who works in Digital India project.
+SQL> select emp.name from emp,works_on,project where works_on.pid=project.pid and project.eid=emp.eid and works_on.pname='Digital India';
+
+NAME
+-------------------------
+Arkopal Das
+Krishnendu Das
+Self join
+SQL> Create table emp(
+	Empno varchar(3) primary key,
+	Address varchar(15),
+	Mgrno varchar(3)
+);
+SQL> insert into emp values(&empno,&address,&mgrno);
+Enter value for empno: 'e1'
+Enter value for address: 'Howrah'
+Enter value for mgrno: 'e3'
+SQL> /
+Enter value for empno: 'e2'
+Enter value for address: 'Hoogly'
+Enter value for mgrno: 'e5'
+SQL> /
+Enter value for empno: 'e3'
+Enter value for address: 'Howrah'
+Enter value for mgrno: ''
+SQL> /
+Enter value for empno: 'e4'
+Enter value for address: 'Kolkata'
+Enter value for mgrno: 'e3'
+SQL> /
+Enter value for empno: 'e5'
+Enter value for address: 'Hoogly'
+Enter value for mgrno: ''
+SQL> select * from emp;
+EMP ADDRESS         MGR
+--- --------------- ---
+e1  Howrah          e3
+e2  Hoogly          e5
+e3  Howrah
+e4  Kolkata         e3
+e5  Hoogly
+SQL> select e1.empno mgr , e2.empno emp from emp e1, emp e2 where e2.mgrno = e1.empno ;
+MGR EMP
+--- ---
+e3  e1
+e5  e2
+e3  e4
+Outer Join
+SQL> create table stud(
+  2  name varchar(15),
+  3  dept varchar(15),
+  4  company varchar(15));
+Table created.
+
+SQL> create table company(
+  2  name varchar(15),
+  3  s_name varchar(15),
+  4  dept varchar(15));
+Table created.
+SQL> desc stud;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- -----------------------
+ NAME                                               VARCHAR2(15)
+ DEPT                                               VARCHAR2(15)
+ COMPANY                                            VARCHAR2(15)
+
+SQL> desc company;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- -----------------------
+ NAME                                               VARCHAR2(15)
+ S_NAME                                             VARCHAR2(15)
+ DEPT                                               VARCHAR2(15)
+
+SQL> insert into stud values(&name,&dept,&company);
+Enter value for name: 'Amit'
+Enter value for dept: 'CS'
+Enter value for company: 'Google'
+SQL> /
+Enter value for name: 'Rakesh'
+Enter value for dept: 'Maths'
+Enter value for company: 'Microsoft'
+SQL> /
+Enter value for name: 'Ruvel'
+Enter value for dept: 'IT'
+Enter value for company: ' '
+SQL> /
+Enter value for name: 'Kazi'
+Enter value for dept: 'Phy'
+Enter value for company: 'OTIS'
+
+
+SQL> /
+Enter value for name: 'Wasim'
+Enter value for dept: 'IT'
+Enter value for company: ''
+SQL> /
+Enter value for name: 'Rahul'
+Enter value for dept: 'CS'
+Enter value for company: 'Microsoft'
+SQL> /
+Enter value for name: 'Gourav'
+Enter value for dept: 'Phy'
+Enter value for company: 'Google'
+
+
+
+
+SQL> insert into company values(&name,&s_name,&dept);
+Enter value for name: 'Google'
+Enter value for s_name: 'Amit'
+Enter value for dept: 'CS'
+SQL> /
+Enter value for name: 'Google'
+Enter value for s_name: 'Gourav'
+Enter value for dept: 'Phy'
+SQL> /
+Enter value for name: 'Microsoft'
+Enter value for s_name: 'Rakesh'
+Enter value for dept: 'Maths'
+SQL> /
+Enter value for name: 'Microsoft'
+Enter value for s_name: 'Rahul'
+Enter value for dept: 'CS'
+SQL> /
+Enter value for name: 'OTIS'
+Enter value for s_name: 'Kazi'
+Enter value for dept: 'Phy'
+SQL> /
+Enter value for name: 'Uber'
+Enter value for s_name: ''
+Enter value for dept: ''
+SQL> /
+Enter value for name: 'Facebook'
+Enter value for s_name: ''
+Enter value for dept: ''
+
+
+
+
+SQL> select * from stud;
+
+NAME            DEPT            COMPANY
+--------------- --------------- ---------------
+Amit            CS              Google
+Rakesh          Maths           Microsoft
+Ruvel           IT
+Kazi            Phy             OTIS
+Wasim           IT
+Rahul           CS              Microsoft
+Gourav          Phy             Google
+
+7 rows selected.
+
+
+
+
+
+SQL> select * from company;
+
+NAME            S_NAME          DEPT
+--------------- --------------- ---------------
+Google          Amit            CS
+Google          Gourav          Phy
+Microsoft       Rakesh          Maths
+Microsoft       Rahul           CS
+OTIS            Kazi            Phy
+Uber
+Facebook
+
+7 rows selected.
+
+
+
+
+
+Left Outer Join
+SQL> select * from stud
+  2  left join company
+  3  on stud.dept = company.dept;
+
+NAME            DEPT            COMPANY         NAME        S_NAME     DEPT
+---------------------------------------------------------------------------
+Rahul           CS              Microsoft       Google      Amit		CS
+Amit            CS              Google          Google      Amit		CS
+Gourav          Phy             Google          Google      Gourav	Phy
+Kazi            Phy             OTIS            Google      Gourav	Phy
+Rakesh          Maths           Microsoft       Microsoft   Rakesh	Maths
+Rahul           CS              Microsoft       Microsoft   Rahul		CS
+Amit            CS              Google          Microsoft   Rahul		CS
+Gourav          Phy             Google          OTIS        Kazi		Phy
+Kazi            Phy             OTIS            OTIS        Kazi		Phy
+Wasim           IT
+Ruvel 
+          IT
+11 rows selected.
+Right Outer Join
+SQL> select * from stud
+  2  right join company
+  3  on stud.dept = company.dept;
+
+NAME            DEPT            COMPANY         NAME        S_NAME     DEPT
+---------------------------------------------------------------------------
+Amit            CS              Google          Microsoft   Rahul		CS
+Amit            CS              Google          Google      Amit		CS
+Rakesh          Maths           Microsoft       Microsoft   Rakesh	Maths
+Kazi            Phy             OTIS            OTIS        Kazi		Phy
+Kazi            Phy             OTIS            Google      Gourav	Phy
+Rahul           CS              Microsoft       Microsoft   Rahul		CS
+Rahul           CS              Microsoft       Google      Amit		CS
+Gourav          Phy             Google          OTIS        Kazi		Phy
+Gourav          Phy             Google          Google      Gourav	Phy
+                                                Facebook
+                                                Uber
+11 rows selected.
+
+Full Outer Join
+SQL> select * from stud
+  2  full outer join company
+  3  on stud.dept = company.dept;
+
+
+
+
+
+
+
+
+
+
+NAME            DEPT            COMPANY         NAME         S_NAME    DEPT
+-------------------------------------------------------------------------
+Rahul           CS              Microsoft       Google      Amit    CS
+Amit            CS              Google          Google      Amit    CS
+Gourav          Phy             Google          Google      Gourav  Phy
+Kazi            Phy             OTIS            Google      Gourav  Phy
+Rakesh          Maths           Microsoft       Microsoft   Rakesh  Maths
+Rahul           CS              Microsoft       Microsoft   Rahul   CS
+Amit            CS              Google          Microsoft   Rahul   CS
+Gourav          Phy             Google          OTIS        Kazi    Phy
+Kazi            Phy             OTIS            OTIS        Kazi    Phy
+                                                Uber
+                                                Facebook
+Wasim           IT
+Ruvel           IT
+
+
+
+13 rows selected.
+
+
+
+
+
+
+
+
+Set Operation
+SQL> create table A(
+  2  eid varchar2(10) primary key,
+  3  ename varchar2(20)
+  4  );
+Table created.
+SQL> create table B(
+  2  eid varchar2(10) primary key,
+  3  ename varchar2(20));
+Table created.
+SQL> insert into A values('&eid','&ename');
+Enter value for eid: 11
+Enter value for ename: Amit
+SQL> /
+Enter value for eid: 21
+Enter value for ename: Sonu
+SQL> /
+Enter value for eid: 31
+Enter value for ename: Krish
+SQL> /
+Enter value for eid: 41
+Enter value for ename: Chetan
+SQL> /
+Enter value for eid: 51
+Enter value for ename: Sourish
+SQL> insert into B values('&eid','&ename');
+Enter value for eid: 11
+Enter value for ename: Amit
+SQL> /
+Enter value for eid: 31
+Enter value for ename: Krish
+SQL> /
+Enter value for eid: 51
+Enter value for ename: Sourish
+SQL> /
+Enter value for eid: 71
+Enter value for ename: Arko
+SQL> /
+Enter value for eid: 91
+Enter value for ename: Dip
+
+Q>Display the records that are present inside both of the tables ‘A’ and ‘B’.
+SQL> select eid,ename from A intersect select eid,ename from B;
+EID        ENAME
+---------- --------------------
+11         Amit
+31         Krish
+51         Sourish
+
+
+Q>Display all the records of both the tables but don’t print the repeated records.
+SQL> select eid,ename from A union select eid,ename from B;
+EID        ENAME
+---------- --------------------
+11         Amit
+21         Sonu
+31         Krish
+41         Chetan
+51         Sourish
+71         Arko
+91         Dip
+7 rows selected.
+
+Q>Display all the records of both the tables print the repeated records also.
+SQL> select eid,ename from A union all select eid,ename from B;
+
+EID        ENAME
+---------- --------------------
+11         Amit
+21         Sonu
+31         Krish
+41         Chetan
+51         Sourish
+11         Amit
+31         Krish
+51         Sourish
+71         Arko
+91         Dip
+
+10 rows selected.
+
+
+
+Q>Display the records of table ‘A’ which are not present in table ‘B’.
+SQL> select eid,ename from A minus  select eid,ename from B;
+
+EID        ENAME
+---------- --------------------
+21         Sonu
+41         Chetan
+
+
+
+Q>Display the records of table ‘B’ which are not present in table ‘A’.
+SQL> select eid,ename from B minus  select eid,ename from A;
+
+EID        ENAME
+---------- --------------------
+71         Arko
+91         Dip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Check constraints
+SQL> create table student(
+  2  s_id number(10) primary key,
+  3  s_name varchar2(30),check(s_name=upper(s_name)),
+  4  marks number(3),check(marks between 0 and 100),
+  5  addr varchar2(30),check(addr in('kolkata','howrah','hoogly')));
+Table created.
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- -----------------------
+ S_ID                                      NOT NULL NUMBER(10)
+ S_NAME                                             VARCHAR2(30)
+ MARKS                                              NUMBER(3)
+ ADDR                                               VARCHAR2(30)
+
+SQL> insert into student values(&s_id,'&s_name',&marks,'&addr');
+Enter value for s_id: 1001
+Enter value for s_name: ELON MASK
+Enter value for marks: 40
+Enter value for addr: kolkata
+SQL> /
+Enter value for s_id: 1002
+Enter value for s_name: BILL GATES
+Enter value for marks: 78
+Enter value for addr: hoogly
+SQL> /
+Enter value for s_id: 1003
+Enter value for s_name: NENDU BIREE
+Enter value for marks: 100
+Enter value for addr: howrah
+SQL> /
+Enter value for s_id: 1004
+Enter value for s_name: RADHANENDU
+Enter value for marks: 54
+Enter value for addr: kolkata
+SQL> /
+Enter value for s_id: 1005
+Enter value for s_name: SUPER NENDU
+Enter value for marks: 99
+Enter value for addr: howrah
+
+SQL> select * from student;
+      S_ID S_NAME                              MARKS ADDR
+---------- ------------------------------ ---------- -----
+      1001 ELON MASK                            40   kolkata
+
+      1002 BILL GATES                           78   hoogly
+
+      1003 NENDU BIREE                         100   howrah
+
+      1004 RADHANENDU                           54   kolkata
+
+      1005 SUPER NENDU                          99   howrah
+
+
+Q>Insert records that violates check constraints.
+SQL> insert into student values(&s_id,'&s_name',&marks,'&addr');
+Enter value for s_id: 666
+Enter value for s_name: aljkhf dj
+Enter value for marks: 78
+Enter value for addr: kolkata
+insert into student values(666,'aljkhf dj',78,'kolkata')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SYSTEM.SYS_C007040) violated
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Composite primary key
+SQL> create table emp(
+  2  eid number(5),
+  3  ename varchar2(30),
+  4  mob number(10),
+  5  email_id varchar2(30),
+  6  addr varchar2(20),
+  7  primary key(eid,email_id));
+Table created.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- -------------------------
+ EID                                       NOT NULL NUMBER(5)
+ ENAME                                              VARCHAR2(30)
+ MOB                                                NUMBER(10)
+ EMAIL_ID                                  NOT NULL VARCHAR2(30)
+ ADDR                                               VARCHAR2(20)
+
+
+
+
+Q>Add one attribute named ‘doj’.
+SQL> alter table emp add doj date;
+Table altered.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ------------------------
+ EID                                       NOT NULL NUMBER(5)
+ ENAME                                              VARCHAR2(30)
+ MOB                                                NUMBER(10)
+ EMAIL_ID                                  NOT NULL VARCHAR2(30)
+ ADDR                                               VARCHAR2(20)
+ DOJ                                                DATE
+
+
+
+
+
+
+SQL> insert into emp(eid,ename,email_id,addr,doj) values(10001,'nendu','nenduakash@gmail.com','kolkata','28-jul-2022');
+SQL> insert into emp(eid,ename,email_id,addr,doj) values(10002,'srikrishna','harekrishna@gmail.com','kolkata','21-jul-2005');
+SQL> insert into emp values(&eid,'&ename',&mob,'&email_id','&addr','&doj');
+Enter value for eid: 10003
+Enter value for ename: gopal
+Enter value for mob: 1001001001
+Enter value for email_id: naughtygopal@gmail.com
+Enter value for addr: vrindavan
+Enter value for doj: 01-jan-0001
+SQL> /
+Enter value for eid: 10004
+Enter value for ename: radha
+Enter value for mob: 1001002002
+Enter value for email_id: beautifulradha@gmail.com
+Enter value for addr: mathura
+Enter value for doj: 15-jul-2011
+SQL> /
+Enter value for eid: 10005
+Enter value for ename: kanksha
+Enter value for mob: 9009009009
+Enter value for email_id: devilkanksha@gmail.com
+Enter value for addr: patalok
+Enter value for doj: 23-aug-2020
+SQL> /
+Enter value for eid: 10006
+Enter value for ename: kanai
+Enter value for mob: 6005009003
+Enter value for email_id: friendkanai@gmail.com
+Enter value for addr: vrindavan
+Enter value for doj: 14-aug-2011
+
+
+
+
+
+
+
+
+
+
+
+SQL> select * from emp;
+
+       EID ENAME           MOB         EMAIL_ID           ADDR       DOJ
+---------------------   ---------   ------------------  ----------   ------
+     10001 nendu                  nenduakash@gmail.com    kolkata   28-JUL-22
+
+     10002 srikrishna             harekrishna@gmail.com   kolkata   21-JUL-05
+
+     10003 gopal       1001001001 naughtygopal@gmail.com  Vrindavan 01-JAN-01
+
+     10004 radha       1001002002 beautifulradha@gmail.com mathur   15-JUL-11
+
+     10005 kanksha     9009009009 devilkanksha@gmail.com   patalok  23-AUG-20
+
+     10006 kanai       6005009003 friendkanai@gmail.com    vrindavan 4-AUG-11
+
+
+Q>Find those employee name who has more than ten years of experience.
+SQL> select ename from emp where (substr(sysdate,8,2)-substr(doj,8,2))>10;
+ENAME
+------------------------------
+srikrishna
+gopal
+radha
+kanai
+
+
+Q>Find out those employee who joined in the current month.
+SQL> select ename from emp where substr(doj,4,3)=substr(sysdate,4,3);
+ENAME
+------------------------------
+nendu
+srikrishna
+radha
+
+
+
+SQL> select * from emp2 where mob is null;
+
+ EID   ENAME         MOB    EMAIL_ID               ADDR            DOJ
+----- ----------  --------  --------------------  ------------ ---------
+10001  nendu                nenduakash@gmail.com  kolkata      28-JUL-22
+10002  srikrishna           harekrishna@gmail.com kolkata      21-JUL-05
+
+
+
+Assignment-5
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Aug 5 10:18:05 2022
+SQL> CONNECT
+Enter user-name: system
+Enter password:
+Connected.
+SQL> create table client_master(
+client_no varchar2(6) primary key,
+name varchar2(20) not null,
+city varchar2(15) not null,
+pincode number(8) not null,
+state varchar2(15) not null,
+bal_due number(10,2)not null
+);
+Table created.
+SQL> create table product_master(
+product_no varchar2(6) primary key,
+description varchar2(15) not null,
+profit_percent number(4,2) not null,
+unit_measure varchar2(10) not null,
+qty_on_hand number(8) not null,
+reorder_lvl number(8) not null,
+sell_price number(8,2) not null,
+cost_price number(8,2) not null
+);
+Table created.
+SQL> create table salesman_master(
+salesman_no varchar2(6) primary key,
+salesman_name varchar2(20),
+addr1 varchar2(30) not null,
+addr2 varchar2(30),
+city varchar2(15),
+pincode number(8),
+state varchar2(20),
+sal_amt number(8,2),
+tgt_to_get number(6,2),
+ytd_sales number(6,2),
+remarks varchar2(60) not null
+);
+Table created.
+SQL>create table sales_order
+ order_no varchar(6) primary key,
+ order_date date not null,
+ client_no varchar(6) not null,
+ dely_type varchar(1),
+ bill_yn  varchar(1) not null,
+ salesman_no varchar(6) not null,
+ dely_date  date not null,
+ order_status varchar(15)
+);
+Table created.
+SQL>create table sales_order_details(
+    order_no varchar(10) primary key,
+    product_no varchar(10) not null,
+    qty_ordered number(5) default(0),
+    qty_disp number(5) default(0),
+    product_rate number(10)
+);
+Table created.
+
+
+
+
+
+SQL> insert into client_master values('C00001','Ivan Bayross','Bombay',400054,'Maharashtra',15000);
+SQL> insert into client_master values('C00002','Vandana Saitwal','Madras',780001,'Tamil Nadu',0);
+SQL> insert into client_master values('C00003','Pramada Jaguste','Bombay',400057,'Maharashtra',5000);
+SQL> insert into client_master values('C00004','Basu Navindgi','Bombay',400056,'Maharashtra',0);
+SQL> insert into client_master values('C00005','Ravi Sreedharan','Delhi',100001,' ',2000);
+SQL> insert into client_master values('C00006','Rukmini','Bombay',400050,'Maharasgtra',0);
+
+
+
+
+
+
+
+SQL> insert into product_master values('&product_no','&description',&profit_percent,'&unit_measure',&qty_on_hand,&reorder_lvl,&sell_price,&cost_price);
+Enter value for product_no: P00001
+Enter value for description: 1.44 Floppies
+Enter value for profit_percent: 5
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 100
+Enter value for reorder_lvl: 20
+Enter value for sell_price: 525
+Enter value for cost_price: 500
+SQL> /
+Enter value for product_no: P03453
+Enter value for description: Monitors
+Enter value for profit_percent: 6
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 10
+Enter value for reorder_lvl: 3
+Enter value for sell_price: 12000
+Enter value for cost_price: 11280
+SQL> /
+Enter value for product_no: P06734
+Enter value for description: Mouse
+Enter value for profit_percent: 5
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 20
+Enter value for reorder_lvl: 5
+Enter value for sell_price: 1050
+Enter value for cost_price: 1000
+SQL> /
+Enter value for product_no: P07865
+Enter value for description: 1.22 Floppies
+Enter value for profit_percent: 5
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 100
+Enter value for reorder_lvl: 20
+Enter value for sell_price: 525
+Enter value for cost_price: 500
+SQL> /
+Enter value for product_no: P07868
+Enter value for description: Keyboards
+Enter value for profit_percent: 2
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 10
+Enter value for reorder_lvl: 3
+Enter value for sell_price: 3150
+Enter value for cost_price: 3050
+SQL> /
+Enter value for product_no: P07885
+Enter value for description: CD Drive
+Enter value for profit_percent: 2.5
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 10
+Enter value for reorder_lvl: 3
+Enter value for sell_price: 5250
+Enter value for cost_price: 5100
+SQL> /
+Enter value for product_no: P07965
+Enter value for description: 540 HDD
+Enter value for profit_percent: 4
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 10
+Enter value for reorder_lvl: 3
+Enter value for sell_price: 8400
+Enter value for cost_price: 8000
+SQL> /
+Enter value for product_no: P07975
+Enter value for description: 1.44 Drive
+Enter value for profit_percent: 5
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 10
+Enter value for reorder_lvl: 3
+Enter value for sell_price: 1050
+Enter value for cost_price: 1000
+SQL> /
+Enter value for product_no: P08865
+Enter value for description: 1.22 Drive
+Enter value for profit_percent: 5
+Enter value for unit_measure: Piece
+Enter value for qty_on_hand: 2
+Enter value for reorder_lvl: 3
+Enter value for sell_price: 1050
+Enter value for cost_price: 1000
+
+SQL> insert into salesman_master values('&salesman_no','&salesman_name','&addr1','&addr2','&city',&pincode,'&state',&sal_amt,&tgt_to_get,&ytd_sales,'&remarks');
+Enter value for salesman_no: S00001
+Enter value for salesman_name: kiran
+Enter value for addr1: A/14
+Enter value for addr2: Worli
+Enter value for city: Bombay
+Enter value for pincode: 400002
+Enter value for state: Maharashtra
+Enter value for sal_amt: 3000
+Enter value for tgt_to_get: 100
+Enter value for ytd_sales: 50
+Enter value for remarks: Good
+SQL> /
+Enter value for salesman_no: S00002
+Enter value for salesman_name: Manish
+Enter value for addr1: 65
+Enter value for addr2: Nariman
+Enter value for city: Bombay
+Enter value for pincode: 400001
+Enter value for state: Maharashtra
+Enter value for sal_amt: 3000
+Enter value for tgt_to_get: 200
+Enter value for ytd_sales: 100
+Enter value for remarks: Good
+SQL> /
+Enter value for salesman_no: S00003
+Enter value for salesman_name: Ravi
+Enter value for addr1: P-7
+Enter value for addr2: Bandra
+Enter value for city: Bombay
+Enter value for pincode: 400032
+Enter value for state: Maharashtra
+Enter value for sal_amt: 3000
+Enter value for tgt_to_get: 200
+Enter value for ytd_sales: 100
+Enter value for remarks: Good
+SQL> /
+Enter value for salesman_no: S00004
+Enter value for salesman_name: Ashish
+Enter value for addr1: A/5
+Enter value for addr2: Juhu
+Enter value for city: Bombay
+Enter value for pincode: 400044
+Enter value for state: Maharashtra
+Enter value for sal_amt: 3500
+Enter value for tgt_to_get: 200
+Enter value for ytd_sales: 150
+Enter value for remarks: Good
+
+
+
+
+
+
+
+SQL> insert into sales_order values('&order_no','&order_date','&client_no','&dely_type','&bill_yn','&salesman_no','&dely_date','&order_status');
+Enter value for order_no: O19001
+Enter value for order_date: 12-JAN-96
+Enter value for client_no: C00001
+Enter value for dely_type: F
+Enter value for bill_yn: N
+Enter value for salesman_no: S00001
+Enter value for dely_date: 20-JAN-96
+Enter value for order_status: In process
+SQL> /
+Enter value for order_no: O19002
+Enter value for order_date: 25-JAN-96
+Enter value for client_no: C00002
+Enter value for dely_type: p
+Enter value for bill_yn: n
+Enter value for salesman_no: S00002
+Enter value for dely_date: 27-JAN-96
+Enter value for order_status: Cancelled
+SQL> /
+Enter value for order_no: O46865
+Enter value for order_date: 18-FEB-96
+Enter value for client_no: C00003
+Enter value for dely_type: f
+Enter value for bill_yn: y
+Enter value for salesman_no: S00003
+Enter value for dely_date: 20-FEB-96
+Enter value for order_status: Fulfilled
+SQL> /
+Enter value for order_no: O19003
+Enter value for order_date: 03-APR-96
+Enter value for client_no: C00001
+Enter value for dely_type: f
+Enter value for bill_yn: y
+Enter value for salesman_no: S00001
+Enter value for dely_date: 07-APR-96
+Enter value for order_status: Fulfilled
+SQL> /
+Enter value for order_no: O46866
+Enter value for order_date: 20-may-96
+Enter value for client_no: C00004
+Enter value for dely_type: p
+Enter value for bill_yn: n
+Enter value for salesman_no: S00002
+Enter value for dely_date: 22-may-96
+Enter value for order_status: Cancelled
+SQL> /
+Enter value for order_no: O19008
+Enter value for order_date: 24-may-96
+Enter value for client_no: C00005
+Enter value for dely_type: f
+Enter value for bill_yn: n
+Enter value for salesman_no: S00004
+Enter value for dely_date: 26-may-96
+Enter value for order_status: In process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL> insert into sales_order_details values('&order_no','&product_no',&qty_ordered,&qty_disp,&product_rate);
+Enter value for order_no: O19001
+Enter value for product_no: P00001
+Enter value for qty_ordered: 4
+Enter value for qty_disp: 4
+Enter value for product_rate: 525
+SQL> /
+Enter value for order_no: O46865
+Enter value for product_no: P07868
+Enter value for qty_ordered: 3
+Enter value for qty_disp: 3
+Enter value for product_rate: 3150
+SQL> /
+Enter value for order_no: O19001
+Enter value for product_no: P07965
+Enter value for qty_ordered: 2
+Enter value for qty_disp: 1
+Enter value for product_rate: 8400
+SQL> /
+Enter value for order_no: O19001
+Enter value for product_no: P07885
+Enter value for qty_ordered: 2
+Enter value for qty_disp: 1
+Enter value for product_rate: 5250
+SQL> /
+Enter value for order_no: O19002
+Enter value for product_no: P00001
+Enter value for qty_ordered: 10
+Enter value for qty_disp: 0
+Enter value for product_rate: 525
+SQL> /
+Enter value for order_no: O46865
+Enter value for product_no: P07885
+Enter value for qty_ordered: 3
+Enter value for qty_disp: 1
+Enter value for product_rate: 5250
+SQL> /
+Enter value for order_no: O46865
+Enter value for product_no: P00001
+Enter value for qty_ordered: 10
+Enter value for qty_disp: 10
+Enter value for product_rate: 525
+SQL> /
+Enter value for order_no: O46865
+Enter value for product_no: P03453
+Enter value for qty_ordered: 4
+Enter value for qty_disp: 4
+Enter value for product_rate: 1050
+SQL> /
+Enter value for order_no: O19003
+Enter value for product_no: P03453
+Enter value for qty_ordered: 2
+Enter value for qty_disp: 2
+Enter value for product_rate: 1050
+SQL> /
+Enter value for order_no: O19003
+Enter value for product_no: P06734
+Enter value for qty_ordered: 1
+Enter value for qty_disp: 1
+Enter value for product_rate: 12000
+SQL> /
+Enter value for order_no: O46866
+Enter value for product_no: P07965
+Enter value for qty_ordered: 1
+Enter value for qty_disp: 0
+Enter value for product_rate: 8400
+SQL> /
+Enter value for order_no: O46866
+Enter value for product_no: P07975
+Enter value for qty_ordered: 1
+Enter value for qty_disp: 0
+Enter value for product_rate: 1050
+SQL> /
+Enter value for order_no: O19008
+Enter value for product_no: P00001
+Enter value for qty_ordered: 10
+Enter value for qty_disp: 5
+Enter value for product_rate: 525
+SQL> /
+Enter value for order_no: O19008
+Enter value for product_no: P07975
+Enter value for qty_ordered: 5
+Enter value for qty_disp: 3
+Enter value for product_rate: 1050
+
+SQL> select * from client_master;
+CLIENT NAME                 CITY     PINCODE  STATE        BAL_DUE
+------ ------------------ ---------- -------  -----------  -------
+C00001 Ivan Bayross         Bombay   400054   Maharashtra  15000
+C00002 Vandana Saitwal      Madras   780001   Tamil Nadu       0
+C00003 Pramada Jaguste      Bombay   400057   Maharashtra   5000
+C00004 Basu navindgi        Bombay   400056   Maharashtra      0
+C00005 Ravi Sreedharan      Delhi    100001                 2000
+C00006 Rukmini              Bombay   400050   Maharashtra      0
+6 rows selected.
+
+
+
+
+
+SQL> select * from product_master;
+PRODUC DESCRIPTION  PROFIT_PER UNIT_MEASU QTY_ON_HAND REORDER_LVL SELL COST
+------ ----------- ----------- ---------- ----------- --------- ----- ----
+P00001 1.44 Floppies     5      Piece         100          20    525    500
+P03453 Monitors          6      Piece          10           3  12000  11280
+P06734 Mouse             5      Piece          20           5   1050   1000
+P07865 1.22 Floppies     5      Piece         100          20    525    500
+P07868 Keyboards         2      Piece          10           3   3150   3050
+P07885 CD Drive        2.5      Piece          10           3   5250   5100
+P07965 540 HDD           4      Piece          10           3   8400   8000
+P07975 1.44 Drive        5      Piece          10           3   1050   1000
+P08865 1.22 Drive        5      Piece           2           3   1050   1000
+9 rows selected.
+
+
+
+
+
+SQL> select * from salesman_master;
+SALES SALESMAN ADDR  ADDR   CITY  PINCODE  STATE      SAL TGT YTD_SALE REMARK
+----- -------- ----- ----- ------ -------- ---------- ---- ---- ------- ----
+S00001 Kiran  A/14  Worli  Bombay  400002 Maharashtra 3000  100    50    Good
+S00002 Manish   65 Nariman Bombay  400001 Maharashtra 3000  200   100    Good
+S00003 Ravi    P-7 Bandra  Bombay  400032 Maharashtra 3000  200   100    Good
+S00004 Ashish  A/5 Juhu    Bombay  400044 Maharashtra 3500  200   150    Good
+4 rows selected.
+
+
+SQL> select * from sales_order;
+ORDER_NO   ORDER_DAT CLIENT_NO  D B SALESMAN_N DELY_DATE ORDER_STATUS
+---------- --------- ---------- - - ---------- --------- -------------
+O19001     12-JAN-96 C00001     F N S00001     20-JAN-96 In process
+O19002     25-JAN-96 C00002     p n S00002     27-JAN-96 Cancelled
+O46865     18-FEB-96 C00003     f y S00003     20-FEB-96 Fulfilled
+O19003     03-APR-96 C00001     f y S00001     07-APR-96 Fulfilled
+O46866     20-MAY-96 C00004     p n S00002     22-MAY-96 Cancelled
+O19008     24-MAY-96 C00005     f n S00004     26-MAY-96 In process
+6 rows selected.
+
+
+
+
+
+
+SQL> select * from sales_order_details;
+
+ORDER_NO   PRODUCT_NO QTY_ORDERED   QTY_DISP PRODUCT_RATE
+---------- ---------- ----------- ---------- ------------
+O19001     P00001               4          4          525
+O46865     P07868               3          3         3150
+O19001     P07965               2          1         8400
+O19001     P07885               2          1         5250
+O19002     P00001              10          0          525
+O46865     P07885               3          1         5250
+O46865     P00001              10         10          525
+O46865     P03453               4          4         1050
+O19003     P03453               2          2         1050
+O19003     P06734               1          1        12000
+O46866     P07965               1          0         8400
+O46866     P07975               1          0         1050
+O19008     P00001              10          5          525
+O19008     P07975               5          3         1050
+14 rows selected.
+
+
+
+
+
+
+
+
+Exercise on retrieving records from a table:
+Q. Find out the names of all the clients.
+SQL> select name from client_master;
+NAME
+--------------------
+Ivan Bayross
+Vandana Saitwal
+Pramada Jaguste
+Basu navindgi
+Ravi Sreedharan
+Rukmini
+6 rows selected.
+
+
+Q. Retrieve the list of names and the cities of all the clients.
+SQL> select name,city from client_master;
+NAME                 CITY
+-------------------- ---------------
+Ivan Bayross         Bombay
+Vandana Saitwal      Madras
+Pramada Jaguste      Bombay
+Basu navindgi        Bombay
+Ravi Sreedharan      Delhi
+Rukmini              Bombay
+6 rows selected.
+
+
+Q. List the various products available from the product_master table.
+SQL> select description from product_master;
+DESCRIPTION
+---------------
+1.44 Floppies
+Monitors
+Mouse
+1.22 Floppies
+Keyboards
+CD Drive
+540 HDD
+1.44 Drive
+1.22 Drive
+9 rows selected.
+
+
+
+Q.List all client details who are located in Bombay.
+SQL> select * from client_master where city='Bombay';
+CLIENT NAME                 CITY      PINCODE    STATE      BAL_DUE
+------ ------------------- --------- -------- ------------- --------
+C00001 Ivan Bayross         Bombay    400054   Maharashtra   15000
+C00003 Pramada Jaguste      Bombay    400057   Maharashtra    5000
+C00004 Basu navindgi        Bombay    400056   Maharashtra       0
+C00006 Rukmini              Bombay    400050   Maharashtra       0
+
+
+
+
+Q. Find the names of the salesman who have a salary equal to Rs.3000.
+SQL> select salesman_name from salesman_master where sal_amt=3000;
+SALESMAN_NAME
+--------------------
+Kiran
+Manish
+Ravi
+
+
+
+
+
+Q. Retrieve the entire contents of the client_master table.
+SQL> select * from client_master;
+CLIENT NAME                 CITY     PINCODE  STATE        BAL_DUE
+------ ------------------ ---------- -------  -----------  -------
+C00001 Ivan Bayross         Bombay   400054   Maharashtra  15000
+C00002 Vandana Saitwal      Madras   780001   Tamil Nadu       0
+C00003 Pramada Jaguste      Bombay   400057   Maharashtra   5000
+C00004 Basu navindgi        Bombay   400056   Maharashtra      0
+C00005 Ravi Sreedharan      Delhi    100001                 2000
+C00006 Rukmini              Bombay   400050   Maharashtra      0
+6 rows selected.
+
+
+
+
+
+
+Exercise on updating records in a table:
+Q. Change the city of client_no ‘C00005’ to ‘Bombay’.
+SQL> update client_master set city='Bombay' where client_no='C00005';
+1 row updated.
+Commit complete.
+
+SQL> select *from client_master;
+
+CLIENT NAME                 CITY     PINCODE  STATE        BAL_DUE
+------ ------------------ ---------- -------  -----------  -------
+C00001 Ivan Bayross         Bombay   400054   Maharashtra  15000
+C00002 Vandana Saitwal      Madras   780001   Tamil Nadu       0
+C00003 Pramada Jaguste      Bombay   400057   Maharashtra   5000
+C00004 Basu navindgi        Bombay   400056   Maharashtra      0
+C00005 Ravi Sreedharan      Bombay   100001                 2000
+C00006 Rukmini              Bombay   400050   Maharashtra      0
+6 rows selected.
+
+
+
+
+
+
+Exercise on computations table:
+Q. Find the names of all clients having ‘a’ as the second letter in their names.
+SQL> select name from client_master where name like '_a%';
+NAME
+--------------------
+Vandana Saitwal
+Basu navindgi
+Ravi Sreedharan
+
+
+Q. Find out the clients who stay in a city whose second letter is ‘a’.
+SQL> select name from client_master where city like '_a%';
+NAME
+--------------------
+Vandana Saitwal
+
+Q. Find the list of all clients who stay in ‘Bombay’ or ‘Delhi’.
+SQL> select name from client_master where city in ('Bombay','Delhi');
+NAME
+--------------------
+Ivan Bayross
+Pramada Jaguste
+Basu navindgi
+Ravi Sreedharan
+Rukmini
+
+
+Q. Print the list of clients whose bal_due is greater than value 10000.
+SQL> select name from client_master where bal_due>10000;
+NAME
+--------------------
+Ivan Bayross
+
+
+Q. Print the information from sales_order table for orders placed in the month of january.
+SQL> select * from sales_order where to_char(order_date,'mon')='jan';
+ORDER_NO   ORDER_DAT CLIENT_NO  D B SALESMAN_N DELY_DATE ORDER_STATUS
+---------- --------- ---------- - - ---------- --------- -------------
+O19001     12-JAN-96 C00001     F N S00001     20-JAN-96 In process
+O19002     25-JAN-96 C00002     p n S00002     27-JAN-96 Cancelled
+
+
+Q. Display the order information for client_no ‘C00001’ and ‘C00002’.
+SQL> select * from sales_order where client_no in('C00001','C00002');
+ORDER_NO   ORDER_DAT CLIENT_NO  D B SALESMAN_N DELY_DATE ORDER_STATUS
+---------- --------- ---------- - - ---------- --------- ------------
+O19001     12-JAN-96 C00001     F N S00001     20-JAN-96 In process
+O19002     25-JAN-96 C00002     p n S00002     27-JAN-96 Cancelled
+O19003     03-APR-96 C00001     f y S00001     07-APR-96 Fulfilled
+
+
+Q.Find products whose selling price is greater than 2000 and less or equall to 5000.
+SQL> select description from product_master where sell_price between 2001 and 5000;
+DESCRIPTION
+---------------
+Keyboards
+Q.Find products whose selling price is more than 1500.Calculate a new selling price as original selling price * .15.Rename the new column in the above query as new_price.
+SQL> select description from product_master where sell_price > 1500;
+DESCRIPTION
+---------------
+Monitors
+Keyboards
+CD Drive
+540 HDD
+
+SQL> update product_master set sell_price=(sell_price* 0.15);
+9 rows updated.
+
+SQL> select new_price from product_master;
+ NEW_PRICE
+----------
+     78.75
+      1800
+     157.5
+     78.75
+     472.5
+     787.5
+      1260
+     157.5
+     157.5
+9 rows selected.
+
+
+
+
+Q.List the names,city and state of clients who are not in the state of ‘Maharashtra’.
+SQL> select name,city,state from client_master where state not in('Maharashtra');
+
+NAME                 CITY            STATE
+-------------------- --------------- ---------------
+Vandana Saitwal      Madras          Tamil Nadu
+Ravi Sreedharan      Delhi           Delhi
+
+
+
+Q.Count the total number of orders.
+SQL> select count(order_no) from sales_order;
+COUNT(ORDER_NO)
+---------------
+              6
+
+
+Q.Calculate the average price of all the products.
+SQL> select avg(cost_price) from product_master;
+AVG(COST_PRICE)
+---------------
+     3492.22222
+
+Q.Determine the maximum and minimum product prices. Rename the output max_price and min_price respectively.
+SQL> select max(cost_price)max_price from product_master;
+ MAX_PRICE
+----------
+     11280
+
+SQL> select min(cost_price)min_price from product_master;
+ MIN_PRICE
+----------
+       500
+
+
+Q.Count the number of products having price greater than or equal to 1500.
+SQL> select count(*) from (select product_no from product_master where cost_price >= 1500);
+  COUNT(*)
+----------
+         4
+
+Q.Find all the products whose qty_on_hand is less than recorder level.
+SQL> select description from product_master where qty_on_hand < reorder_lvl;
+DESCRIPTION
+---------------
+1.22 Drive
+
+
+
+
+
+Exercise on Data Manipulation:
+Q>Display the order number and day on wich clients placed their order.
+SQL> select order_no,to_char(order_date,'day')from sales_order;
+ORDER_NO   TO_CHAR(ORDER_DATE,'DAY')
+---------- ------------------------------------
+O19001     friday
+O19002     thursday
+O46865     sunday
+O19003     wednesday
+O46866     monday
+O19008     friday
+6 rows selected.
+
+
+Q>Display the month (in alphabets) and date when the order must be delivered.
+SQL> select to_char(dely_date,'month'),to_char(dely_date,'dd')from sales_order;
+TO_CHAR(DELY_DATE,'MONTH')           TO
+------------------------------------ --
+january                              20
+january                              27
+february                             20
+april                                07
+may                                  22
+may                                  26
+6 rows selected.
+
+
+
+Q>Display the order in the format ‘DD-Month-YY’. e.g. 12-February-96.
+SQL> select to_char(order_date,'dd-month-yy')from sales_order;
+TO_CHAR(ORDER_DATE,'DD-MONTH-YY')
+------------------------------------------
+12-january  -96
+25-january  -96
+18-february -96
+03-april    -96
+20-may      -96
+24-may      -96
+6 rows selected.
+
+
+Q>Find the number of days elapsed between today’s date and the delivery date of the orders placed by the clients.
+SQL>select trunc(months_between(sysdate,dely_date)*30)no_of_days_since_dely_date from sales_order;
+
+NO_OF_DAYS_SINCE_DELY_DATE
+--------------------------
+                      9558
+                      9552
+                      9528
+                      9481
+                      9436
+                      9433
+6 rows selected.
+
+
+
+
+
+
+
+Exercise on using Having and Group By clauses :
+Q>Print the description and total qty sold for each product.
+SQL> select   product_master.description,sum(sales_order_details.qty_disp) as    
+              total_qty_sold 
+     from     product_master natural join sales_order_details 
+     group by product_master.description;
+
+DESCRIPTION     TOTAL_QTY_SOLD
+--------------- --------------
+1.44 Floppies               19
+CD Drive                     2
+Keyboards                    3
+540 HDD                      1
+Mouse                        1
+1.44 Drive                   3
+Monitors                     6
+
+7 rows selected.
+
+
+
+
+
+Q>Find the value of each product sold.
+SQL> select  product_no,sum(product_rate) as value 
+     from    sales_order_details 
+    group by product_no;
+
+PRODUCT_NO      VALUE
+---------- ----------
+P07965          16800
+P07868           3150
+P07885          10500
+P06734          12000
+P03453           2100
+P07975           2100
+P00001           2100
+
+7 rows selected.
+
+
+Q>Calculate the average qty sold for each client that has a maximum order value of 15000.00.
+SQL> select  sales_order.client_no,avg(sales_order_details.qty_disp)
+     from    sales_order inner join sales_order_details on                                   
+             sales_order_details.order_no=sales_order.order_no 
+    group by sales_order.client_no 
+    having   sum(sales_order_details.product_rate)<15000;
+
+CLIENT_NO  AVG(SALES_ORDER_DETAILS.QTY_DISP)
+---------- ---------------------------------
+C00003                                   4.5
+C00004                                     0
+C00002                                     0
+C00005                                     4
+
+
+
+
+
+
+
+
+Exercise on Joins and Correlation:
+Q>Find out the products, which have been sold to ‘Ivan Bayross’.
+SQL> select client_master.name,product_master.description 
+     from   client_master join sales_order on 
+            client_master.client_no=sales_order.client_no join   
+            sales_order_details on      
+            sales_order.order_no=sales_order_details.order_no join  
+            product_master on         
+            sales_order_details.product_no=product_master.product_no
+     where  client_master.name='Ivan Bayross';
+NAME                 DESCRIPTION
+-------------------- ---------------
+Ivan Bayross         1.44 Floppies
+Ivan Bayross         540 HDD
+Ivan Bayross         CD Drive
+Ivan Bayross         Monitors
+Ivan Bayross         Mouse
+
+Q>Find out the products, their quantities and their delivery month.
+SQL> select product_master.description,to_char(sales_order.dely_date,'month'),sales_order_details.qty_ordered 
+      from 
+product_master join sales_order_details on product_master.product_no=sales_order_details.product_no join sales_order on sales_order.order_no=sales_order_details.order_no ;
+DESCRIPTION     TO_CHAR(SALES_ORDER.DELY_DATE,'MONTH QTY_ORDERED
+--------------- ------------------------------------ -----------
+1.44 Floppies   may                                           10
+1.44 Floppies   february                                      10
+1.44 Floppies   january                                       10
+1.44 Floppies   january                                        4
+Monitors        april                                          2
+Monitors        february                                       4
+Mouse           april                                          1
+Keyboards       february                                       3
+CD Drive        february                                       3
+CD Drive        january                                        2
+540 HDD         may                                            1
+540 HDD         january                                        2
+1.44 Drive      may                                            5
+1.44 Drive      may                                            1
+Q>Find out the product_no and description of constantly sold i.e rapidly moving products.
+SQL> SELECT product_master.product_no,product_master.description 
+FROM product_master JOIN sales_order_details
+ON product_master.product_no=sales_order_details.product_no 
+WHERE sales_order_details.qty_disp>2;
+PRODUC DESCRIPTION
+------ ---------------
+P00001 1.44 Floppies
+P07868 Keyboards
+P00001 1.44 Floppies
+P03453 Monitors
+P00001 1.44 Floppies
+P07975 1.44 Drive
+
+Q>Find out the name of the clients who have purchased ‘CD Drive’.
+SQL> select client_master.name 
+from client_master join sales_order 
+on client_master.client_no=sales_order.client_no 
+join sales_order_details on sales_order.order_no=sales_order_details.order_no join product_master on sales_order_details.product_no=product_master.product_no 
+where product_master.description='CD Drive';
+NAME
+--------------------
+Ivan Bayross
+Pramada Jaguste
+
+
+Q>List the product_no and order_no of customers having qty_ordered less than 5 from the sales_order_details table for the product ‘1.44 Floppies’.
+SQL>SELECT sales_order_details.order_no,sales_order_details.product_no
+FROM sales_order_details
+JOIN sales_order 
+ON sales_order.order_no=sales_order_details.order_no 
+JOIN product_master 
+ON product_master.product_no=sales_order_details.product_no  
+WHERE product_master.description='1.44 Floppies' AND sales_order_details.qty_ordered<5;
+
+ORDER_NO   PRODUCT_NO
+---------- ----------
+O19001     P00001
+
+
+
+
+Assignment-6
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Aug 12 08:22:42 2022
+
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+
+
+
+
+SQL> create sequence s1
+     start with 1
+     increment by 1
+     minvalue 1 maxvalue 10;
+Sequence created.
+
+
+
+
+SQL> select s1.nextval,s1.currval from dual;
+   NEXTVAL    CURRVAL
+---------- ----------
+         1          1
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         2          2
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         3          3
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         4          4
+
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         5          5
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         6          6
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         7          7
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         8          8
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+         9          9
+
+SQL> /
+   NEXTVAL    CURRVAL
+---------- ----------
+        10         10
+
+SQL> /
+select s1.nextval,s1.currval from dual
+*
+ERROR at line 1:
+ORA-08004: sequence S1.NEXTVAL exceeds MAXVALUE and cannot be instantiated
+
+
+
+
+
+
+
+
+SQL> create sequence s3
+     start with 100
+     increment by -1
+     maxvalue 200;
+Sequence created.
+
+
+SQL> select s3.nextval from dual;
+   NEXTVAL
+----------
+       100
+
+SQL> /
+   NEXTVAL
+----------
+        99
+
+SQL> /
+   NEXTVAL
+----------
+        98
+
+SQL> /
+   NEXTVAL
+----------
+        97
+
+SQL> /
+   NEXTVAL
+----------
+        96
+
+SQL> /
+   NEXTVAL
+----------
+        95
+
+
+
+
+
+
+
+SQL> create sequence s2
+     increment by 1
+     maxvalue 5
+     cache 3 cycle;
+Sequence created.
+
+SQL> select s2.nextval from dual;
+   NEXTVAL
+----------
+         1
+
+SQL> /
+   NEXTVAL
+----------
+         2
+
+SQL> /
+   NEXTVAL
+----------
+         3
+
+SQL> /
+   NEXTVAL
+----------
+         4
+
+SQL> /
+   NEXTVAL
+----------
+         5
+
+SQL> /
+   NEXTVAL
+----------
+         1
+
+SQL> /
+   NEXTVAL
+----------
+         2
+
+
+
+SQL> drop sequence s1;
+Sequence dropped.
+
+SQL> drop sequence s2;
+Sequence dropped.
+
+SQL> drop sequence s3;
+Sequence dropped.
+
+
+SQL> create table bill(
+     bill_id number(5) primary key,
+     product_name varchar2(30) not null,
+     price number(7,2)
+);
+Table created.
+
+SQL> create sequence s1
+     start with 1
+     increment by 1
+     minvalue 1;
+Sequence created.
+
+
+
+SQL> insert into bill values(s1.nextval,'cpu',12000.00);
+1 row created.
+
+SQL> insert into bill values(s1.nextval,'monitor',15000.00);
+1 row created.
+
+SQL> insert into bill values(s1.nextval,'mouse',350.00);
+1 row created.
+
+SQL> insert into bill values(s1.nextval,'keyboard',500.00);
+1 row created.
+
+SQL> insert into bill values(s1.nextval,'speaker',2500.00);
+1 row created.
+
+
+
+
+SQL> select * from bill;
+
+   BILL_ID PRODUCT_NAME                        PRICE
+---------- ------------------------------ ----------
+         1 cpu                                 12000
+         2 monitor                             15000
+         3 mouse                                 350
+         4 keyboard                              500
+         5 speaker                              2500
+
+SQL> insert into bill values(s1.nextval,'&product_name',&price);
+Enter value for product_name: ups
+Enter value for price: 4000.00
+SQL> /
+Enter value for product_name: ram
+Enter value for price: 12000.00
+
+SQL> select * from bill;
+
+   BILL_ID PRODUCT_NAME                        PRICE
+---------- ------------------------------ ----------
+         1 cpu                                 12000
+         2 monitor                             15000
+         3 mouse                                 350
+         4 keyboard                              500
+         5 speaker                              2500
+         6 ups                                  4000
+         7 ram                                 12000
+
+7 rows selected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+ rownum
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Aug 12 10:02:04 2022
+
+
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+
+SQL> select * from client_master;
+CLIENT NAME                 CITY        PINCODE    STATE         BAL_DUE
+------ -------------------- ---------- ---------- ------------- ----------
+C00001 Ivan Bayross         Bombay       400054   Maharashtra     15000
+C00002 Vandana Saitwal      Madras       780001   Tamil Nadu      0
+C00003 Pramada Jaguste      Bombay       400057   Maharashtra     5000
+C00004 Basu navindgi        Bombay       400056   Maharashtra     0
+C00005 Ravi Sreedharan      Delhi        100001   Delhi           2000
+C00006 Rukmini              Bombay       400050   Maharashtra     0
+6 rows selected.
+
+
+Q>Display first three rows of the table.
+SQL> select * from client_master where rownum < 4;
+CLIENT NAME                 CITY        PINCODE    STATE       BAL_DUE
+------ -------------------- ---------- --------- ------------- --------
+C00001 Ivan Bayross         Bombay       400054   Maharashtra     15000
+C00002 Vandana Saitwal      Madras       780001   Tamil Nadu      0
+C00003 Pramada Jaguste      Bombay       400057   Maharashtra     5000
+
+
+
+Q>Display first four rows of the table.
+SQL> select * from client_master where rownum <= 4;
+CLIENT NAME                 CITY       PINCODE     STATE       BAL_DUE
+------ -------------------- --------- ----------- ------------ ---------
+C00001 Ivan Bayross         Bombay       400054   Maharashtra     15000
+C00002 Vandana Saitwal      Madras       780001   Tamil Nadu      0
+C00003 Pramada Jaguste      Bombay       400057   Maharashtra     5000
+CLIENT NAME                 CITY        PINCODE    STATE        BAL_DUE
+------ -------------------- ------------ ------- -------------- -------
+C00004 Basu navindgi        Bombay       400056   Maharashtra     0
+
+
+Q>Display only the fourth row of the table.
+
+SQL> select * from client_master where rownum == 4;
+select * from client_master where rownum == 4
+ERROR at line 1:
+ORA-00936: missing expression
+
+SQL> select * from client_master where rownum <= 4 minus select * from client_master where rownum < 4;
+
+CLIENT NAME                 CITY        PINCODE    STATE         BAL_DUE
+------ -------------------- ---------- ---------- ------------- ----------
+C00004 Basu navindgi        Bombay       400056   Maharashtra     0
+
+
+
+
+
+
+
+
+
+Q>Take the row number as input and display the row of the table.
+
+SQL> select * from client_master where rownum <= &n minus select * from client_master where rownum < &n;
+Enter value for n: 5
+Enter value for n: 5
+
+CLIENT NAME                 CITY        PINCODE    STATE         BAL_DUE
+------ -------------------- ---------- ---------- ------------- ----------
+C00005 Ravi Sreedharan      Delhi        100001   Delhi           2000
+ 
+
+
+Assignment-7
+Q>Write a pl/sql code to find the sum of two user given numbers.
+SQL> set serveroutput on;
+SQL> Declare
+	a number(3);
+	b number(3);
+	c number(3);
+     Begin
+	a := &a;
+	b := &b;
+	c := a + b;
+	dbms_output.put_line('The sum is  ' || c);
+End;   
+/
+Enter value for a: 20
+Enter value for b: 30
+The sum is  50
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code to find the maximum of two user given numbers.
+SQL> set serveroutput on;
+SQL> Declare
+        a number(3);
+        b number(3);
+     Begin
+        a := &a;
+        b := &b;
+        if a > b then
+     dbms_output.put_line('The maximum number is : ' || a);
+        elsif a < b then
+     dbms_output.put_line('The maximum number is : ' || b);
+        else
+        dbms_output.put_line('Both numbers are equall.');
+        end if;
+     End;
+ /
+Enter value for a: 56
+Enter value for b: 65
+The maximum number is : 65
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code that will check if the user given number is even or odd. If even insert into ‘even’ table and if odd insert into ‘odd’ table.
+SQL> set serveroutput on;
+SQL> Declare
+          a number(5);
+          b number(1);
+     Begin
+          a := &a;
+          b := a mod 2;
+          if b = 0  then
+     insert into even values(a);
+          else
+        insert into odd values(a);
+          end if;
+     End;
+/
+Enter value for a: 4
+PL/SQL procedure successfully completed.
+
+SQL> select * from even;
+
+     VALUE
+----------
+         4
+
+Q>Write a pl/sql code to check the user entered year is a leap year or not.
+SQL> set serveroutput on;
+SQL> Declare
+	yr number(4);
+	
+Begin
+	yr := &yr;
+	if mod(yr,4)=0 and mod(yr,100)!=0 then
+		dbms_output.put_line(yr || ' is a leap year');
+	elsif mod(yr,400)=0 then
+		dbms_output.put_line(yr || ' is a leap year');
+	else
+		dbms_output.put_line(yr || ' is not a leap year');
+	end if;
+End; 
+/
+Enter value for a: 2012
+It is a leap year
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code to insert radius,area,circumference of a circle having radius ranging 3-to-7, in the ‘circle’ table.
+
+SQL> create table circle(
+     radius number(1) not null,
+     area number(5,2) not null,
+     circumference number(4,2) not null);
+
+Table created.
+
+
+SQL> set sereveroutput on;
+SQL> Declare
+     		i number(1);
+     		a number(5,2);
+     		c number(4,2);
+     Begin
+     		for i in 3..7 loop
+     		  a := 3.14*i*i;
+     		  c := 2*3.14*i;
+     		  insert into circle values(i,a,c);
+     		end loop;
+     End;
+/
+
+PL/SQL procedure successfully completed.
+
+
+
+SQL> select * from circle;
+    RADIUS       AREA CIRCUMFERENCE
+---------- ---------- -------------
+         3      28.26         18.84
+         4      50.24         25.12
+         5       78.5          31.4
+         6     113.04         37.68
+         7     153.86         43.96
+
+
+
+
+
+
+Q>Write a pl/sql code to find the factorial of a user entered number.
+SQL> set serveroutput on;
+SQL> Declare
+     		a number(2);
+     		fact number(10);
+     		i number(2);
+     Begin
+     		a := &a;
+    		fact := 1;
+     		for i in 1 .. a loop
+     		  fact := fact*i;
+     		end loop;
+     		dbms_output.put_line('The factorial is ' || fact);
+     End;
+/
+Enter value for a: 4
+The factorial is 24
+PL/SQL procedure successfully completed.
+
+
+
+
+Q>Write a pl/sql code to print the reverse of a user entered number.
+SQL> set serveroutput on;
+SQL> Declare
+     		num varchar(5);
+     		str_length number(20);
+     		inverted_number varchar(5);
+     Begin
+     		num:= &num;
+     		str_length:=length(num);
+     		for i in reverse 1 .. str_length  loop
+     			inverted_number:=inverted_number || substr(num,i,1);
+     		end loop;
+     	   dbms_output.put_line('The Given number is ' || num);
+     	   dbms_output.put_line('The Inverted number is ' || inverted_number);
+     End;
+/
+Enter value for num: 1235
+The Given number is 1235
+The Inverted number is 5321
+PL/SQL procedure successfully completed.
+
+Q>Write a pl/sql code to debit and update account balance of the user entered account, from ‘accounts’ table with some pre inserted values.
+SQL> create table accounts(
+     account_no number(5) primary key,
+     amount number(7,2) not null
+);
+Table created.
+
+SQL> insert into accounts values(12345,5000.00);
+SQL> insert into accounts values(12346,4000.00);
+SQL> insert into accounts values(12347,8000.00);
+
+SQL> select * from accounts;
+ACCOUNT_NO     AMOUNT
+---------- ----------
+     12345       5000
+     12346       4000
+     12347       8000
+
+SQL> set serveroutput on;
+SQL> Declare
+	acc number(5) := &acc;
+	curbal number(7,2);
+	bal number(7,2);
+Begin
+	select amount into curbal from accounts where acc = account_no;
+	bal := curbal-2000;
+	update accounts set amount = bal where acc = account_no;
+	dbms_output.put_line('current balance was ' || curbal);
+	dbms_output.put_line('udated balance is ' || bal);
+
+End;
+/
+Enter value for acc: 12345
+The current balance is 3000
+PL/SQL procedure successfully completed.
+
+SQL> select * from accounts;
+ACCOUNT_NO     AMOUNT
+---------- ----------
+     12345       3000
+     12346       4000
+     12347       8000
+Q>Write a pl/sql code to check whether today is weekend i.e SUNDAY.
+SQL> set serveroutput on;
+SQL> Declare
+     Begin
+     		if  to_char(sysdate,'day')='sunday' then
+     			dbms_output.put_line('Entered date is a weekend.');
+     		else
+     			dbms_output.put_line('Entered date is not a weekend.');
+     		end if;
+     End;
+/
+Entered date is not a weekend.
+
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code to display the grade against entered marks.
+SQL> set serveroutput on;
+SQL> Declare
+    		n number(3);
+     Begin
+     		n := &n;
+     		if n >= 90 then
+     			dbms_output.put_line('Grade : O');
+     		elsif n>= 80 then
+     			dbms_output.put_line('Grade : E');
+     		elsif n>= 70 then
+     			dbms_output.put_line('Grade : A');
+     		elsif n>= 60 then
+   			dbms_output.put_line('Grade : B');
+   		elsif n>= 50 then
+   			dbms_output.put_line('Grade : C');
+   		elsif n>= 40 then
+   			dbms_output.put_line('Grade : D');
+   		elsif n < 40 then
+   			dbms_output.put_line('Grade : F');
+     		end if;
+     End;
+/
+Enter value for n: 56
+Grade : C
+
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code to check whether a entered character is letter or digit.
+SQL> set serveroutput on;
+SQL>Declare
+	str char(1) := &A_character;
+Begin
+	if str between '0' AND '9' then
+		dbms_output.put_line('Entered character is a digit');
+	elsif (str >= 'A' AND str <= 'Z') OR (str >= 'a' AND str <= 'z') then
+		dbms_output.put_line('Entered character is a letter');
+	else
+		dbms_output.put_line('Entered character is nither digit nor letter');
+	end if;
+End;/
+Enter value for a: 'd'
+Entered charecter is a  letter.
+PL/SQL procedure successfully completed.
+SQL> /
+Enter value for a: 8
+Entered charecter is a  digit.
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code to print sum of first n numbers.
+SQL> set serveroutput on;
+SQL> Declare
+    		n number(3);
+    		i number(3);
+    		s number(5);
+    Begin
+   		n := &n;
+   		s := 0;
+    		for i in 1 .. n
+   		loop
+   			s := s + i ;
+  		end loop;
+    dbms_output.put_line( 'The sum of frist ' || n || ' numnbers is:'|| s );
+    End;
+/
+Enter value for n: 15
+The sum of frist 15 numnbers is :120
+
+PL/SQL procedure successfully completed.
+Q>Write a pl/sql code to convert Fahrenheit to Celsius and vice-versa.
+SQL> set serveroutput on;
+SQL> Declare
+   		celsius number(6,2);
+     		f number(6,2);
+  		fahrenheit number(6,2);
+    		c number(6,2);
+    	Begin
+   		celsius := &celsius;
+   		f :=((9/5)*celsius)+32;
+   		fahrenheit := &fahrenheit;
+   		c :=((fahrenheit - 32)*5)/9;
+   		dbms_output.put_line('celsius converted to fahrenheit is ' || f);
+ 		dbms_output.put_line('fahrenheit converted to celsius is ' || c);
+     End;
+/
+Enter value for celsius: 0
+Enter value for fahrenheit: 32
+celsius converted to fahrenheit is 32
+fahrenheit converted to celsius is 0
+
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q>Write a pl/sql code to check whether a number is prime or not.
+SQL> set serveroutput on;
+SQL> Declare
+    		n number(3);
+    		i number(3);
+    		m number(2);
+    		cou number(1);
+
+     Begin
+    		n := &n;
+    		cou := 0;
+    		for i in 2 .. (n-1)
+   		loop
+   			m := n mod i;
+   			if m = 0 then
+   				cou:=1;
+   				dbms_output.put_line(n || ' is divisible by ' || i );
+   			end if;
+   		end loop;
+   		if cou = 0 then
+   			dbms_output.put_line( n || ' is a prime numnber.'  );
+   		else
+ 	   		dbms_output.put_line( n || ' is not a prime numnber.'  );
+   		end if;
+     End;
+/
+Enter value for n: 12
+12 is divisible by 2
+12 is divisible by 3
+12 is divisible by 4
+12 is divisible by 6
+12 is not a prime numnber.
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for n: 13
+13 is a prime numnber.
+
+PL/SQL procedure successfully completed.
+
+
+Q>Write a pl/sql code that will take the number from one to seven and print the corresponding day.
+SQL> set serveroutput on;
+SQL> declare
+    		n number(1);
+     begin
+    		n := &n;
+    		if n = 1 then
+    			dbms_output.put_line('Sunday');
+    		elsif n = 2 then
+    			dbms_output.put_line('Monday');
+    		elsif n = 3 then
+   			dbms_output.put_line('Tuesday');
+   		elsif n = 4 then
+   			dbms_output.put_line('Wednesday');
+   		elsif n = 5 then
+   			dbms_output.put_line('Thursday');
+   		elsif n = 6 then
+   			dbms_output.put_line('Friday');
+   		elsif n = 7 then
+   			dbms_output.put_line('Saturday');
+   		else
+   			dbms_output.put_line('Enter an integer between 1 and 7');
+   		end if;
+     End;
+ /
+Enter value for n: 6
+Friday
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q>Write a pl/sql code that will check whether entered string is palindrome or not.
+
+
+
+SQL> set serveroutput on;
+SQL> Declare
+     		str varchar(10);
+    		n number(2);
+    		restr varchar(10);
+     Begin
+    		str := &str;
+    		n := length(str);
+    		for i in reverse 1 .. n
+   		loop
+   			restr := restr || substr(str,i,1);
+   		end loop;
+
+   		if (str = restr)
+   		then
+   			dbms_output.put_line('Entered string is a Palindrom');
+   		else
+   			dbms_output.put_line('Entered string is not a Plindrom');
+   		end if;
+     End;
+/
+Enter value for str: 'basab'
+Entered string is a Palindrom
+PL/SQL procedure successfully completed.
+
+
+
+SQL> /
+Enter value for str: 'nhsdf'
+Entered string is not a Plindrom
+PL/SQL procedure successfully completed.
+
+
+
+
+
+
+
+Q>Write a pl/sql code that will check whether entered number is a buzz or not.
+
+SQL> set serveroutput on;
+SQL> Declare
+    		a number(8);
+     Begin
+    		a:=&a;
+    		if (mod(a,7)=0)
+    		then
+    		dbms_output.put_line('The entered number is a buzz number');
+    		elsif(mod(a,10)=7)
+    		then
+   		dbms_output.put_line('The entered number is a buzz number');
+   		else
+   		dbms_output.put_line('The entered number is not a buzz number');
+   		end if;
+     End;
+/
+Enter value for a: 12547
+The entered number is a buzz number
+PL/SQL procedure successfully completed.
+
+
+SQL> /
+Enter value for a: 256
+The entered number is not a buzz number
+PL/SQL procedure successfully completed.
+
+
+SQL> /
+Enter value for a: 49
+The entered number is a buzz number
+PL/SQL procedure successfully completed.
+
+
+
+
+Q>Write a pl/sql code to check whether entered date is SUNDAY.
+
+
+//Q>Write a pl/sql code to check whether today is weekend i.e SUNDAY.
+ 
+set serveroutput on;
+Declare
+	det date:= to_date(&det, 'dd-mm-yyyy');
+	v varchar(10);
+Begin
+	v := to_char(det,'DAY');
+	
+	if trim(v) ='SUNDAY' then
+		dbms_output.put_line(det || ' is sunday.');
+	else
+		dbms_output.put_line('sorry');
+	end if;
+End;
+
+
+
+
+
+Assignment-8
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+
+SQL> create table client_master(
+  2  client_no varchar2(6) primary key,check(client_no like 'C%'),
+  3  name varchar2(20) not null,
+  4  addresss1 varchar2(30),
+  5  addresss2 varchar2(30),
+  6  city varchar2(15),
+  7  state varchar2(15),
+  8  pincode number(6),
+  9  bal_due number(10,2));
+
+Table created.
+
+SQL> insert into client_master values('C00001','Rahul','Dhubulia','Bethua','Bombay','Maharashtra',741154,2100);
+SQL> insert into client_master values('C00003','Joyce','Belur','Bethua','Korgar','Madhya Pradesh',741104,2000);
+SQL> insert into client_master values('C00004','Varsha','Dhubulia','Muragacha','Ballari','Karnataka',741165,2300);
+SQL> insert into client_master values('C00005','Donald','Plassey','Bethua','Warangal','Telangana',744973,2300);
+SQL> insert into client_master values('C00006','Jayesh','Dhubulia','Krishnanagar','Ajmer','Rajasthan',740065,2400);
+SQL> insert into client_master values('C00007','Anoop','Badkulla','Bethua','Rajkot','Gujrat',741896,2300);
+SQL> insert into client_master values('C00008','Sunita','Dhubulia','Ranaghat','Gaya','Bihar',741076,8000);
+SQL> insert into client_master values('C00009','Arjun','katwa','Bethua','Lucknow','Uttar Pradesh',741404,2200);
+
+
+
+
+SQL> create table auditclient(
+  2  client_no varchar(6),
+  3  name varchar2(20),
+  4  bal_due number(10,2),
+  5  operation varchar2(8),
+  6  userid varchar2(20),
+  7  odate date);
+
+Table created.
+
+SQL>
+SQL> /* pl/sql code to implement trigger */
+SQL>
+SQL>
+SQL> set serveroutput on ;
+SQL> create or replace trigger audit_trail
+  2  after update or delete on client_master
+  3  for each row
+  4  Declare
+  5  		oper varchar2(8);
+  6  		client_no varchar2(20);
+  7  		name varchar2(20);
+  8  		bal_due number(10,2);
+  9  	Begin
+ 10  		if updating
+ 11  		then
+ 12  			oper:='update';
+ 13  		end if;
+ 14  		if deleting
+ 15  		then
+ 16  			oper:='delete';
+ 17  		end if;
+ 18
+ 19  		client_no:= :old.client_no;
+ 20  		name:= :old.name;
+ 21  		bal_due:= :old.bal_due;
+ 22  	insert into auditclient values  (client_no,name,bal_due,oper,user,sysdate);
+ 23  End;
+ 24  /
+
+Trigger created.
+
+
+
+
+SQL> select * from client_master;
+
+CLIENT NAME    ADDRESSS1   ADDRESSS2    CITY     STATE    PINCODE     BAL_DUE
+-----------------------------------------------------------------------------
+C00001 Rahul  Dhubulia   Bethua       Bombay   Maharashtra     741154    2100
+C00003 Joyce  Belur      Bethua       Korgar   Madhya Pradesh  741104    2000
+C00004 Varsha Dhubulia   Muragacha    Ballari  Karnataka       741165    2300
+C00005 Donald Plassey    Bethua       Warangal Telangana       744973    2300
+C00006 Jayesh Dhubulia   Krishnanagar Ajmer    Rajasthan       740065    2400
+C00007 Anoop  Badkulla   Bethua       Rajkot   Gujrat          741896    2300
+C00008 Sunita Dhubulia   Ranaghat     Gaya     Bihar           741076    8000
+C00009 Arjun  katwa      Bethua       Lucknow  Uttar Pradesh   741404    2200
+8 rows selected.
+
+
+
+SQL> delete from client_master where name='Donald';
+1 row deleted.
+SQL> update client_master set name='Nendu' where client_no='C00009';
+1 row updated.
+
+
+SQL> select * from auditclient;
+
+CLIENT NAME                    BAL_DUE OPERATIO USERID               ODATE
+------ -------------------- ---------- -------- ------------------- --------
+C00005 Donald                     2300 delete   SYSTEM              24-NOV-22
+C00009 Arjun                      2200 update   SYSTEM              24-NOV-22
+
+
+
+SQL> select * from client_master;
+
+CLIENT NAME    ADDRESSS1   ADDRESSS2    CITY     STATE    PINCODE     BAL_DUE
+-----------------------------------------------------------------------------
+C00001 Rahul  Dhubulia   Bethua       Bombay   Maharashtra     741154    2100
+C00003 Joyce  Belur      Bethua       Korgar   Madhya Pradesh  741104    2000
+C00004 Varsha Dhubulia   Muragacha    Ballari  Karnataka       741165    2300
+C00006 Jayesh Dhubulia   Krishnanagar Ajmer    Rajasthan       740065    2400
+C00007 Anoop  Badkulla   Bethua       Rajkot   Gujrat          741896    2300
+C00008 Sunita Dhubulia   Ranaghat     Gaya     Bihar           741076    8000
+C00009 Nendu  katwa      Bethua       Lucknow  Uttar Pradesh   741404    2200
+
+7 rows selected.
+
+
+
+
+
+
+
